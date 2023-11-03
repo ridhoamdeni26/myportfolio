@@ -1,0 +1,28 @@
+import { Link, usePage } from '@inertiajs/react';
+export default function SidebarLink() {
+    const { url } = usePage()
+    return (
+        <div className="menu scrollable w-full float-left">
+            <ul className="transition_link h-full flex items-center justify-center flex-col">
+                <li className="active mb-[15px]">
+                    <Link href="/" className={url === '/' ? 'active' : ''}>Home</Link>
+                </li>
+                <li className="mb-[15px]">
+                    <a href="#about">About</a>
+                </li>
+                <li className="mb-[15px]">
+                    <a href="#service">Services</a>
+                </li>
+                <li className="mb-[15px]">
+                    <a href="#portfolio">Portfolio</a>
+                </li>
+                <li className="mb-[15px]">
+                    <a href="#news">Blog</a>
+                </li>
+                <li>
+                    <a href="#contact">Contact</a>
+                </li>
+            </ul>
+        </div>
+    )
+}
