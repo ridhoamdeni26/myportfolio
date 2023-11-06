@@ -1,5 +1,5 @@
-import { TypeAnimation } from 'react-type-animation';
-import { Link } from '@inertiajs/react';
+import { TypeAnimation } from "react-type-animation";
+import { Link } from "@inertiajs/react";
 
 export default function Home({ name, country, phone, email, address, typed }) {
     return (
@@ -20,7 +20,10 @@ export default function Home({ name, country, phone, email, address, typed }) {
                                         <TypeAnimation
                                             sequence={typed}
                                             wrapper="span"
-                                            speed={{ type: 'keyStrokeDelayInMs', value: 400 }}
+                                            speed={{
+                                                type: "keyStrokeDelayInMs",
+                                                value: 400,
+                                            }}
                                             repeat={Infinity}
                                         />
                                     </span>
@@ -31,8 +34,8 @@ export default function Home({ name, country, phone, email, address, typed }) {
                             </div>
                             <div className="subtitle wfll max-w-[80%] float-left mb-[40px]">
                                 <p>
-                                    I'm a {country} based web designer
-                                    &amp; fullstack developer with{" "}
+                                    I'm a {country} based web designer &amp;
+                                    fullstack developer with{" "}
                                     <span className="text-blue-color">
                                         5+ years
                                     </span>{" "}
@@ -40,9 +43,7 @@ export default function Home({ name, country, phone, email, address, typed }) {
                                 </p>
                             </div>
                             <div className="buttons w-full float-left flex items-center mb-[120px]">
-                                <div
-                                    className="elisc_tm_button transition_link"
-                                >
+                                <div className="elisc_tm_button transition_link">
                                     <Link href="">Got a project?</Link>
                                 </div>
                                 <div
@@ -55,26 +56,29 @@ export default function Home({ name, country, phone, email, address, typed }) {
                             <div className="info w-full float-left">
                                 <ul className="relative">
                                     <li className="pl-[15px]">
-                                        <div className='text-[#130F49] font-semibold text-[18px]'>{phone}</div>
+                                        <div className="text-[#130F49] font-semibold text-[18px]">
+                                            {phone}
+                                        </div>
                                     </li>
                                     <li className="pl-[15px]">
-                                        <div className='text-[#130F49] font-semibold text-[18px]'>{email}</div>
+                                        <div className="text-[#130F49] font-semibold text-[18px]">
+                                            {email}
+                                        </div>
                                     </li>
                                     <li className="pl-[15px]">
-                                        <div className='text-[#130F49] font-semibold text-[18px]'>{address}, {country}</div>
+                                        <div className="text-[#130F49] font-semibold text-[18px]">
+                                            {address}, {country}
+                                        </div>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                         <div className="right w-1/2 pl-[50px]">
-                            <img
-                                src="assets/img/about/2.png"
-                                alt=""
-                            />
+                            <img src="assets/img/about/2.png" alt="" />
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    )
+    );
 }

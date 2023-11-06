@@ -12,4 +12,9 @@ class PortfolioController extends Controller
     {
         return Inertia::render('User/Index');
     }
+
+    public function about()
+    {
+        return Inertia::render('User/About');
+    }
 }
