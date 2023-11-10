@@ -1,7 +1,7 @@
 import Authenticated from "@/Layouts/User/Authenticated/Index";
 import { TypeAnimation } from "react-type-animation";
 import { Link, Head } from "@inertiajs/react";
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function About() {
     const [showModal, setShowModal] = useState(false);
@@ -10,22 +10,21 @@ export default function About() {
     const experiences = [
         {
             id: 1,
-            year: '-2018 - Present',
-            job: 'Web Developer',
-            place: 'Envato Market',
+            year: "-2018 - Present",
+            job: "Web Developer",
+            place: "Envato Market",
             description:
-                'Website development is the process of building, programming, coding and maintaining websites and web applications.',
-            image: '/assets/img/experience/1.jpg',
+                "Website development is the process of building, programming, coding and maintaining websites and web applications.",
+            image: "/assets/img/experience/1.jpg",
         },
     ];
 
     const openModal = (experience) => {
         setSelectedExperience(experience);
-        setShowModal(true);
     };
 
     const closeModal = () => {
-        setShowModal(false);
+        setSelectedExperience(null);
     };
 
     const typed = [
@@ -42,8 +41,7 @@ export default function About() {
     return (
         <>
             <Authenticated>
-                <Head title="About Me">
-                </Head>
+                <Head title="About Me"></Head>
                 <div className="elisc_tm_section">
                     <div className="elisc_tm_about w-full float-left pt-[130px]">
                         <div className="tm_content w-full max-w-[1250px] h-auto clear-both my-0 mx-auto py-0 px-[20px]">
@@ -205,7 +203,10 @@ export default function About() {
                                 <div className="list w-full float-left mt-[40px]">
                                     <ul className="ml-[-30px] flex flex-wrap">
                                         {experiences.map((experience) => (
-                                            <li className="mb-[40px] pl-[30px] float-left w-1/2" key={experience.id}>
+                                            <li
+                                                className="mb-[40px] pl-[30px] float-left w-1/2"
+                                                key={experience.id}
+                                            >
                                                 <img
                                                     className="popup_image"
                                                     src={experience.image}
@@ -215,7 +216,9 @@ export default function About() {
                                                     <div className="short w-full float-left flex justify-between mb-[16px]">
                                                         <div className="job">
                                                             <span className="text-yellow-color font-medium inline-block mb-[4px]">
-                                                                {experience.year}
+                                                                {
+                                                                    experience.year
+                                                                }
                                                             </span>
                                                             <h3 className="text-[20px]">
                                                                 {experience.job}
@@ -223,62 +226,54 @@ export default function About() {
                                                         </div>
                                                         <div className="place">
                                                             <span className="font-medium font-inter">
-                                                                {experience.place}
+                                                                {
+                                                                    experience.place
+                                                                }
                                                             </span>
                                                         </div>
                                                     </div>
                                                     <div className="text w-full float-left">
                                                         <p className="opacity-[0.7]">
-                                                            {experience.description}
+                                                            {
+                                                                experience.description
+                                                            }
                                                         </p>
                                                     </div>
 
-                                                    <a class="elisc_tm_full_link absolute inset-0 z-[5]" href="#" onClick={() => openModal(experience)}></a>
-
-                                                    <div className="hidden_details">
-                                                        <div className="descriptions">
-                                                            <p>
-                                                                Elisc is a leading
-                                                            </p>
-                                                            <p>
-                                                                In todays digital
-                                                            </p>
-                                                            <p>
-                                                                Thats why more
-                                                                companies are not
-                                                            </p>
-                                                        </div>
-                                                    </div>
+                                                    <a
+                                                        className="elisc_tm_full_link absolute inset-0 z-[5]"
+                                                        href="#"
+                                                        onClick={() =>
+                                                            openModal(
+                                                                experience
+                                                            )
+                                                        }
+                                                    ></a>
                                                 </div>
                                             </li>
                                         ))}
                                     </ul>
-                                    {showModal && (
-                                        <div className="fixed top-0 left-0 z-[1000] w-full h-full overflow-hidden bg-gray-700">
-                                            <div className="absolute top-[100px] left-[50%] transform -translate-x-[50%] bg-white w-[90%] rounded-[8px] overflow-hidden">
-                                                <button
-                                                    className="top-[-40px] right-[-40px] w-[40px] h-[40px] bg-red-500 text-white rounded-full text-[32px] font-bold hover:bg-red-600 transition duration-300"
-                                                    onClick={closeModal}
-                                                >
-                                                    X
-                                                </button>
-                                                <img
-                                                    className="popup_image"
-                                                    src={selectedExperience.image}
-                                                    alt=""
-                                                />
-                                                <div className="list_inner w-full float-left clear-both bg-white rounded-[4px] px-[70px] py-[45px] relative">
-                                                    <div className="short w-full float-left flex justify-between mb-[16px]">
-                                                        <div className="job">
-                                                            <h4>{selectedExperience.job}</h4>
-                                                            <p>{selectedExperience.place}</p>
-                                                        </div>
-                                                        <div className="time">
-                                                            <h4>{selectedExperience.year}</h4>
-                                                        </div>
-                                                    </div>
-                                                    <p>{selectedExperience.description}</p>
-                                                </div>
+                                    {selectedExperience && (
+                                        <div id="my_modal_3" className="modal">
+                                            <div className="modal-box">
+                                                <form method="dialog">
+                                                    <button
+                                                        className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                                                        onClick={() =>
+                                                            closeModal()
+                                                        }
+                                                    >
+                                                        ✕
+                                                    </button>
+                                                </form>
+                                                <h3 className="font-bold text-lg">
+                                                    {selectedExperience?.job}
+                                                </h3>
+                                                <p className="py-4">
+                                                    {
+                                                        selectedExperience?.description
+                                                    }
+                                                </p>
                                             </div>
                                         </div>
                                     )}
