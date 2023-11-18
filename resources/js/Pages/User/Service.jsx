@@ -2,7 +2,7 @@ import Authenticated from "@/Layouts/User/Authenticated/Index";
 import { Head } from "@inertiajs/react";
 import ServiceDetail from "@/Components/ServiceDetail";
 
-export default function Service() {
+export default function Service({ services }) {
     return (
         <>
             <Authenticated>
@@ -18,7 +18,7 @@ export default function Service() {
                                 <a href="mailto:secretridho26@gmail.com">secretridho26@gmail.com</a>
                             </div>
                             <div className="service_list w-full float-left mt-[40px] mb-[50px]">
-                                <ServiceDetail />
+                                <ServiceDetail services={services} />
                             </div>
                         </div>
                     </div>
