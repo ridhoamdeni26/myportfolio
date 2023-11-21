@@ -5,6 +5,8 @@ import "../../public/assets/css/plugins.css";
 import "../../public/assets/css/custom.css";
 import "../../public/assets/css/modalbox.css";
 import "../../public/assets/css/main.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 import { createRoot } from "react-dom/client";
 import { createInertiaApp } from "@inertiajs/react";

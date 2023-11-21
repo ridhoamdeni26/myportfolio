@@ -20,6 +20,7 @@ use Inertia\Inertia;
 Route::get('/', [PortfolioController::class, 'index'])->name('portfolio.index');
 Route::get('/about-me', [PortfolioController::class, 'about'])->name('portfolio.about');
 Route::get('/services', [PortfolioController::class, 'services'])->name('portfolio.services');
+Route::get('/portfolio', [PortfolioController::class, 'portfolio'])->name('portfolio.home');
 
 // Route::get('/', function () {
 //     return Inertia::render('Welcome', [

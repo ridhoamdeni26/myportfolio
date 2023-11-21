@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Experiences;
 use App\Models\Myprofiles;
+use App\Models\PortfolioProject;
 use App\Models\Services;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -43,6 +44,15 @@ class PortfolioController extends Controller
             ->get();
         return Inertia::render('User/Service', [
             'services' => $services
+        ]);
+    }
+
+    public function portfolio()
+    {
+        $portfolio = PortfolioProject::orderBy('id')
+            ->get();
+        return Inertia::render('User/Portfolio', [
+            'portfolio' => $portfolio
         ]);
     }
 }

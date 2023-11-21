@@ -26,7 +26,12 @@ export default function SidebarLink() {
                     </Link>
                 </li>
                 <li className="mb-[15px]">
-                    <a href="#portfolio">Portfolio</a>
+                    <Link
+                        href="/portfolio"
+                        className={url === "/portfolio" ? "active" : ""}
+                    >
+                        Portfolio
+                    </Link>
                 </li>
                 <li className="mb-[15px]">
                     <a href="#news">Blog</a>
