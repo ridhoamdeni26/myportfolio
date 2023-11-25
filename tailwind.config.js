@@ -16,8 +16,11 @@ export default {
                 sans: ["Figtree", ...defaultTheme.fontFamily.sans],
             },
             screens: {
-                laptopLg: "1160px",
-                laptopXl: "1360px",
+                xs: { max: '450px' },
+                sm: '480px',
+                md: '768px',
+                lg: '976px',
+                xl: '1440px',
             },
         },
     },
