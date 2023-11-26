@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Contactme;
 use App\Models\Experiences;
 use App\Models\Myprofiles;
 use App\Models\PortfolioProject;
 use App\Models\Services;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Validator;
 
 class PortfolioController extends Controller
 {
@@ -54,5 +56,54 @@ class PortfolioController extends Controller
         return Inertia::render('User/Portfolio', [
             'portfolio' => $portfolio
         ]);
+    }
+
+    public function contact()
+    {
+        $profiles = Myprofiles::orderBy('id')
+            ->first();
+        return Inertia::render('User/Contact', [
+            'profiles' => $profiles,
+        ]);
+    }
+
+    public function contactSend(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'fullname' => 'required|string|max:255',
+                'email' => 'required|email|max:255',
+                'message' => 'required|string|min:5',
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+
+            $data = $request->all();
+
+            Contactme::create($data);
+
+            $profiles = Myprofiles::orderBy('id')
+                ->first();
+
+            return Inertia::render('User/Contact', [
+                'profiles' => $profiles,
+                'toast' => [
+                    'type' => 'success',
+                    'message' => 'send message successfully',
+                ],
+            ]);
+
+            // $responseData = [
+            //     'success' => true,
+            //     'message' => 'Contact saved successfully!',
+            //     'profiles' => $profiles,
+            // ];
+
+            // return Inertia::render('User/Contact', $responseData);
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Error storing contact data']);
+        }
     }
 }

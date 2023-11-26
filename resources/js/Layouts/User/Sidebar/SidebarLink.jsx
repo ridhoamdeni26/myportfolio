@@ -34,10 +34,12 @@ export default function SidebarLink() {
                     </Link>
                 </li>
                 <li className="mb-[15px]">
-                    <a href="#news">Blog</a>
-                </li>
-                <li>
-                    <a href="#contact">Contact</a>
+                    <Link
+                        href="/contact-me"
+                        className={url === "/contact-me" ? "active" : ""}
+                    >
+                        Contact
+                    </Link>
                 </li>
             </ul>
         </div>
