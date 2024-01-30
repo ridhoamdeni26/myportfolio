@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Profile;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -16,9 +17,12 @@ class HomepageController extends Controller
             ['label' => 'Homepage Admin'],
         ];
 
+        $profiles = Profile::first();
+
         return Inertia::render('Homepage/Index', [
             'breadcrumb' => $breadcrumb,
-            'currentPage' => $currentPage
+            'currentPage' => $currentPage,
+            'profiles' => $profiles
         ]);
     }
 }

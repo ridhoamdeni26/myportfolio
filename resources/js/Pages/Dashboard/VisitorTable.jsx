@@ -1,11 +1,13 @@
-import { Link } from '@inertiajs/react';
-import React, { useState, useEffect } from 'react';
-import DataTable, { createTheme } from 'react-data-table-component';
-import { Icon } from '@iconify/react';
+import { Link } from "@inertiajs/react";
+import React, { useState, useEffect } from "react";
+import DataTable, { createTheme } from "react-data-table-component";
 
 function VisitorTable({ visitors }) {
-    const [searchTerm, setSearchTerm] = useState('');
+    const [searchTerm, setSearchTerm] = useState("");
     const [perPage, setPerPage] = useState(10);
+
+    const [pending, setPending] = useState(true);
+    const [rows, setRows] = useState([]);
 
     const handlePerPageChange = (newPerPage) => {
         setPerPage(newPerPage);
@@ -15,74 +17,95 @@ function VisitorTable({ visitors }) {
         setSearchTerm(e.target.value);
     };
 
+    useEffect(() => {
+        const fetchData = async () => {
+            await new Promise((resolve) => setTimeout(resolve, 2000));
+            setRows(visitors.data);
+            setPending(false);
+        };
+        fetchData();
+    }, [visitors]);
+
     const customStyles = {
         headCells: {
             style: {
-                background: '#334155',
+                background: "#334155",
             },
-            className: 'table-th',
+            className: "table-th",
         },
         cells: {
             style: {
-                paddingLeft: '1rem',
-                paddingRight: '2rem',
+                paddingLeft: "1rem",
+                paddingRight: "2rem",
             },
         },
     };
 
-    createTheme('solarized', {
-        text: {
-            primary: '#ffffff',
-            secondary: '#9ca3af',
+    createTheme(
+        "solarized",
+        {
+            text: {
+                primary: "#ffffff",
+                secondary: "#9ca3af",
+            },
+            background: {
+                default: "#1E293B",
+            },
+            context: {
+                background: "#111827",
+                text: "#ffffff",
+            },
+            divider: {
+                default: "#374151",
+            },
+            action: {
+                button: "#4b5563",
+                hover: "#6b7280",
+                disabled: "#9ca3af",
+            },
         },
-        background: {
-            default: '#1E293B',
-        },
-        context: {
-            background: '#111827',
-            text: '#ffffff',
-        },
-        divider: {
-            default: '#374151',
-        },
-        action: {
-            button: '#4b5563',
-            hover: '#6b7280',
-            disabled: '#9ca3af',
-        },
-    }, 'dark');
-
+        "dark"
+    );
 
     const columns = [
         {
-            name: 'Ip Address',
-            selector: row => row.ip_address,
+            name: "Ip Address",
+            selector: (row) => row.ip_address,
+            sortable: true,
         },
         {
-            name: 'Operating System',
-            selector: row => row.operating_system,
+            name: "Operating System",
+            selector: (row) => row.operating_system,
+            sortable: true,
         },
         {
-            name: 'Visit Time',
-            selector: row => row.visit_time,
+            name: "Visit Time",
+            selector: (row) => row.visit_time,
+            sortable: false,
         },
         {
-            name: 'City',
-            selector: row => row.city,
+            name: "City",
+            selector: (row) => row.city,
+            sortable: true,
         },
         {
-            name: 'Region',
-            selector: row => row.region,
-        }
+            name: "Region",
+            selector: (row) => row.region,
+            sortable: true,
+        },
     ];
 
-    const filteredData = visitors.data.filter((visitor) =>
+    const filteredData = visitors.filter((visitor) =>
         Object.values(visitor).some(
             (value) =>
-                typeof value === 'string' &&
+                typeof value === "string" &&
                 value.toLowerCase().includes(searchTerm.toLowerCase())
         )
     );
+
+    const handleChange = ({ selectedRows }) => {
+        console.log("Selected Rows: ", selectedRows);
+    };
 
     return (
         <div className="card">
@@ -100,7 +123,11 @@ function VisitorTable({ visitors }) {
                             <select
                                 id="rowsPerPage"
                                 value={perPage}
-                                onChange={(e) => handlePerPageChange(parseInt(e.target.value, 10))}
+                                onChange={(e) =>
+                                    handlePerPageChange(
+                                        parseInt(e.target.value, 10)
+                                    )
+                                }
                                 className="border p-1"
                             >
                                 <option value={10}>10</option>
@@ -110,7 +137,7 @@ function VisitorTable({ visitors }) {
                             </select>
                         </div>
                         <div className="flex items-center">
-                            <div className='text-white ml-4'>Search</div>
+                            <div className="text-white ml-4">Search</div>
                             <input
                                 type="text"
                                 value={searchTerm}
@@ -126,18 +153,21 @@ function VisitorTable({ visitors }) {
                                 className="min-w-full divide-y table-fixed divide-slate-700"
                                 columns={columns}
                                 data={filteredData}
+                                progressPending={pending}
                                 customStyles={customStyles}
                                 theme="solarized"
                                 pagination
                                 paginationPerPage={perPage}
-                                paginationRowsPerPageOptions={[10, 25, 50, 100]}
+                                selectableRows
+                                onSelectedRowsChange={handleChange}
+                                highlightOnHover
                             />
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default VisitorTable
+export default VisitorTable;

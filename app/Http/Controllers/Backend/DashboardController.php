@@ -30,7 +30,7 @@ class DashboardController extends Controller
             ->orderByDesc('visit_time')
             ->first();
 
-        $visitors = Visitor::orderBy('visit_time', 'desc')->paginate(10);
+        $visitors = Visitor::latest()->get();
 
         return Inertia::render('Dashboard/Index', [
             'breadcrumb' => $breadcrumb,

@@ -1,4 +1,5 @@
-import { Icon } from '@iconify/react';
+import { Icon } from "@iconify/react";
+import { Link } from "@inertiajs/react";
 
 export default function Sidebar({ currentPage }) {
     return (
@@ -15,21 +16,28 @@ export default function Sidebar({ currentPage }) {
                             className="white_logo"
                             alt="logo"
                         />
-                        <span
-                            className="ml-3 text-xl font-Inter font-bold text-white"
-                        >DashCode</span
-                        >
+                        <span className="ml-3 text-xl font-Inter font-bold text-white">
+                            DashCode
+                        </span>
                     </a>
                     <div
                         id="sidebar_type"
                         className="cursor-pointer text-white text-lg"
                     >
-                        <Icon className="sidebarDotIcon extend-icon text-slate-200" icon="fa-regular:dot-circle" />
-                        <Icon className="sidebarDotIcon collapsed-icon text-slate-200" icon="material-symbols:circle-outline" />
-
+                        <Icon
+                            className="sidebarDotIcon extend-icon text-slate-200"
+                            icon="fa-regular:dot-circle"
+                        />
+                        <Icon
+                            className="sidebarDotIcon collapsed-icon text-slate-200"
+                            icon="material-symbols:circle-outline"
+                        />
                     </div>
                     <button className="sidebarCloseIcon text-2xl">
-                        <Icon className="text-slate-200" icon="clarity:window-close-line" />
+                        <Icon
+                            className="text-slate-200"
+                            icon="clarity:window-close-line"
+                        />
                     </button>
                 </div>
             </div>
@@ -41,28 +49,46 @@ export default function Sidebar({ currentPage }) {
                 className="sidebar-menus bg-slate-800 py-2 px-4 h-[calc(100%-80px)] overflow-y-auto z-50"
                 id="sidebar_menus"
             >
-                <div className='dark'>
+                <div className="dark">
                     <ul className="sidebar-menu">
                         <li className="sidebar-menu-title">MENU</li>
                         <li>
-                            <a href={route('dashboard')} className={`mb-2 navItem ${currentPage === 'dashboard' ? 'active' : ''}`}>
+                            <Link
+                                href="/dashboard"
+                                className={`mb-2 navItem ${
+                                    currentPage === "dashboard" ? "active" : ""
+                                }`}
+                            >
                                 <span className="flex items-center">
-                                    <Icon className="nav-icon mr-3" icon="material-symbols:dashboard-outline" />
+                                    <Icon
+                                        className="nav-icon mr-3"
+                                        icon="material-symbols:dashboard-outline"
+                                    />
                                     <span>Dashboard</span>
                                 </span>
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a href={route('homepage.admin')} className={`mb-2 navItem ${currentPage === 'homepage-admin' ? 'active' : ''}`}>
+                            <Link
+                                href="/homepage-admin"
+                                className={`mb-2 navItem ${
+                                    currentPage === "homepage-admin"
+                                        ? "active"
+                                        : ""
+                                }`}
+                            >
                                 <span className="flex items-center">
-                                    <Icon className="nav-icon mr-3" icon="heroicons-outline:home" />
+                                    <Icon
+                                        className="nav-icon mr-3"
+                                        icon="heroicons-outline:home"
+                                    />
                                     <span>Home Page</span>
                                 </span>
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
-    )
+    );
 }

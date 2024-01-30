@@ -22,7 +22,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
-        "framer-motion": "^10.17.9",
+        "framer-motion": "^10.18.0",
         "prop-types": "^15.8.1",
         "react-apexcharts": "^1.4.1",
         "react-data-table-component": "^7.6.2",
