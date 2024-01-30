@@ -1,9 +1,22 @@
 import { TypeAnimation } from "react-type-animation";
 import { Link } from "@inertiajs/react";
+import { motion } from 'framer-motion';
+
 
 export default function AboutmeProfile({ typed, fullname, age, city, country, email, phone }) {
+    const componentVariants = {
+        hidden: { opacity: 0, y: -50 },
+        visible: { opacity: 1, y: 0 },
+    };
+
     return (
-        <div className="left w-[40%]">
+        <motion.div
+            className="left w-[40%]"
+            initial="hidden"
+            animate="visible"
+            variants={componentVariants}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+        >
             <div className="title w-full float-left mb-[40px]">
                 <span className="mini block uppercase font-medium mb-[12px]">
                     - Nice to meet you!
@@ -64,6 +77,6 @@ export default function AboutmeProfile({ typed, fullname, age, city, country, em
             <div className="elisc_tm_button transition_link">
                 <Link href="">Got a project?</Link>
             </div>
-        </div>
+        </motion.div>
     )
 }

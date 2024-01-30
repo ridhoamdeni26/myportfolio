@@ -1,3 +1,4 @@
+import React from 'react';
 import Authenticated from "@/Layouts/User/Authenticated/Index";
 import { Head } from "@inertiajs/react";
 import { useState } from "react";
@@ -5,6 +6,8 @@ import ExperienceModal from "@/Components/ExperienceModal";
 import AboutmeProfile from "@/Components/AboutmeProfile";
 import AboutmeDetail from "@/Components/AboutmeDetail";
 import AboutmeExperience from "@/Components/AboutmeExperience";
+import { motion, useAnimation } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 
 export default function About({ experiences, profiles, statistics }) {
     const [showModal, setShowModal] = useState(false);
@@ -31,6 +34,27 @@ export default function About({ experiences, profiles, statistics }) {
         1000,
     ];
 
+    const controls = useAnimation();
+    const [ref, inView] = useInView({
+        triggerOnce: true,
+    });
+
+    const titleVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0 },
+    };
+
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: { opacity: 1 },
+    };
+
+    React.useEffect(() => {
+        if (inView) {
+            controls.start('visible');
+        }
+    }, [controls, inView]);
+
     return (
         <>
             <Authenticated>
@@ -53,21 +77,35 @@ export default function About({ experiences, profiles, statistics }) {
                             </div>
                         </div>
                         <div className="elisc_tm_experience w-full float-left bg-[#F3F9FF] pt-[100px] pb-[70px] px-0">
-                            <div className="tm_content w-full max-w-[1250px] h-auto clear-both my-0 mx-auto py-0 px-[20px]">
-                                <div className="elisc_tm_title w-full float-left">
+                            <motion.div
+                                className="tm_content w-full max-w-[1250px] h-auto clear-both my-0 mx-auto py-0 px-[20px]"
+                                ref={ref}
+                                initial="hidden"
+                                animate={controls}
+                                variants={containerVariants}
+                                transition={{ duration: 0.6, ease: 'easeOut' }}
+                            >
+                                <motion.div
+                                    className="elisc_tm_title w-full float-left"
+                                    variants={titleVariants}
+                                >
                                     <span className="w-full float-left font-medium uppercase inline-block mb-[12px]">
                                         - Experience
                                     </span>
                                     <h3 className="text-[40px] font-extrabold">
                                         Everything about me!
                                     </h3>
-                                </div>
+                                </motion.div>
                                 <div className="list w-full float-left mt-[40px]">
-                                    <ul className="ml-[-30px] flex flex-wrap">
+                                    <motion.ul
+                                        className="ml-[-30px] flex flex-wrap"
+                                        variants={containerVariants}
+                                    >
                                         {experiences.map((experience) => (
-                                            <li
+                                            <motion.li
                                                 className="mb-[40px] pl-[30px] float-left w-1/2"
                                                 key={experience.id}
+                                                variants={containerVariants}
                                             >
                                                 <img
                                                     className="popup_image"
@@ -108,14 +146,14 @@ export default function About({ experiences, profiles, statistics }) {
                                                         onClick={() => openModal(experience)}
                                                     ></a>
                                                 </div>
-                                            </li>
+                                            </motion.li>
                                         ))}
-                                    </ul>
+                                    </motion.ul>
 
                                     <ExperienceModal experience={selectedExperience} showModal={showModal} closeModal={closeModal} />
 
                                 </div>
-                            </div>
+                            </motion.div>
                         </div>
                     </div>
                 </div>

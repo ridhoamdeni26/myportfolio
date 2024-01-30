@@ -1,12 +1,21 @@
-import React from 'react'
+import { motion } from 'framer-motion';
 
 export default function ExperienceDetail({ experiences }) {
+    const listItemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0 },
+    };
+
     return (
         <ul className="ml-[-30px] flex flex-wrap">
             {experiences.map((experience) => (
-                <li
-                    className="mb-[40px] pl-[30px] float-left w-1/2"
+                <motion.li
                     key={experience.id}
+                    className="mb-[40px] pl-[30px] float-left w-1/2"
+                    initial="hidden"
+                    animate="visible"
+                    variants={listItemVariants}
+                    transition={{ duration: 0.6, ease: 'easeOut' }}
                 >
                     <img
                         className="popup_image"
@@ -47,7 +56,7 @@ export default function ExperienceDetail({ experiences }) {
                             onClick={() => openModal(experience)}
                         ></a>
                     </div>
-                </li>
+                </motion.li>
             ))}
         </ul>
     )

@@ -8,19 +8,46 @@ use App\Models\Experiences;
 use App\Models\Myprofiles;
 use App\Models\PortfolioProject;
 use App\Models\Services;
+use App\Models\Visitor;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Validator;
+use Jenssegers\Agent\Agent;
+use Stevebauman\Location\Facades\Location;
 
 class PortfolioController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $agent = new Agent();
+        $location = Location::get();
+
+        $createVisitor = Visitor::create([
+            'ip_address' => $request->getClientIp(),
+            'operating_system' => $agent->platform(),
+            'visit_time' => now(),
+            'user_agent' => request()->header('User-Agent'),
+            'browser' => $agent->browser(),
+            'browser_version' => $agent->version($agent->browser()),
+            'device' => $agent->device(),
+            'platform' => $agent->platform(),
+            'referer' => $request->headers->get('referer', 'Direct Visit'),
+            'visited_page' => $request->fullUrl(),
+            'city' => $location->cityName,
+            'region' => $location->regionName,
+            'country' => $location->countryName,
+            'zipcode' => $location->zipCode,
+            'timezone' => $location->timezone,
+        ]);
+
         return Inertia::render('User/Index');
     }
 
-    public function about()
+    public function about(Request $request)
     {
+        $agent = new Agent();
+        $location = Location::get();
+
         $exp = Experiences::orderBy('id')
             ->get();
 
@@ -33,6 +60,24 @@ class PortfolioController extends Controller
             ['number' => 10, 'label' => 'Happy Clients', 'color' => '#E3F9E0'],
         ];
 
+        $createVisitor = Visitor::create([
+            'ip_address' => $request->getClientIp(),
+            'operating_system' => $agent->platform(),
+            'visit_time' => now(),
+            'user_agent' => request()->header('User-Agent'),
+            'browser' => $agent->browser(),
+            'browser_version' => $agent->version($agent->browser()),
+            'device' => $agent->device(),
+            'platform' => $agent->platform(),
+            'referer' => $request->headers->get('referer', 'Direct Visit'),
+            'visited_page' => $request->fullUrl(),
+            'city' => $location->cityName,
+            'region' => $location->regionName,
+            'country' => $location->countryName,
+            'zipcode' => $location->zipCode,
+            'timezone' => $location->timezone,
+        ]);
+
         return Inertia::render('User/About', [
             'experiences' => $exp,
             'profiles' => $profiles,
@@ -40,30 +85,95 @@ class PortfolioController extends Controller
         ]);
     }
 
-    public function services()
+    public function services(Request $request)
     {
+        $agent = new Agent();
+        $location = Location::get();
+
         $services = Services::orderBy('id')
             ->get();
+
+        $createVisitor = Visitor::create([
+            'ip_address' => $request->getClientIp(),
+            'operating_system' => $agent->platform(),
+            'visit_time' => now(),
+            'user_agent' => request()->header('User-Agent'),
+            'browser' => $agent->browser(),
+            'browser_version' => $agent->version($agent->browser()),
+            'device' => $agent->device(),
+            'platform' => $agent->platform(),
+            'referer' => $request->headers->get('referer', 'Direct Visit'),
+            'visited_page' => $request->fullUrl(),
+            'city' => $location->cityName,
+            'region' => $location->regionName,
+            'country' => $location->countryName,
+            'zipcode' => $location->zipCode,
+            'timezone' => $location->timezone,
+        ]);
+
         return Inertia::render('User/Service', [
             'services' => $services
         ]);
     }
 
-    public function portfolio()
+    public function portfolio(Request $request)
     {
+        $agent = new Agent();
+        $location = Location::get();
+
         $portfolio = PortfolioProject::orderBy('id')
             ->get();
+
+        $createVisitor = Visitor::create([
+            'ip_address' => $request->getClientIp(),
+            'operating_system' => $agent->platform(),
+            'visit_time' => now(),
+            'user_agent' => request()->header('User-Agent'),
+            'browser' => $agent->browser(),
+            'browser_version' => $agent->version($agent->browser()),
+            'device' => $agent->device(),
+            'platform' => $agent->platform(),
+            'referer' => $request->headers->get('referer', 'Direct Visit'),
+            'visited_page' => $request->fullUrl(),
+            'city' => $location->cityName,
+            'region' => $location->regionName,
+            'country' => $location->countryName,
+            'zipcode' => $location->zipCode,
+            'timezone' => $location->timezone,
+        ]);
+
         return Inertia::render('User/Portfolio', [
             'portfolio' => $portfolio
         ]);
     }
 
-    public function contact()
+    public function contact(Request $request)
     {
+        $agent = new Agent();
+        $location = Location::get();
+
         $profiles = Myprofiles::orderBy('id')
             ->first();
         return Inertia::render('User/Contact', [
             'profiles' => $profiles,
+        ]);
+
+        $createVisitor = Visitor::create([
+            'ip_address' => $request->getClientIp(),
+            'operating_system' => $agent->platform(),
+            'visit_time' => now(),
+            'user_agent' => request()->header('User-Agent'),
+            'browser' => $agent->browser(),
+            'browser_version' => $agent->version($agent->browser()),
+            'device' => $agent->device(),
+            'platform' => $agent->platform(),
+            'referer' => $request->headers->get('referer', 'Direct Visit'),
+            'visited_page' => $request->fullUrl(),
+            'city' => $location->cityName,
+            'region' => $location->regionName,
+            'country' => $location->countryName,
+            'zipcode' => $location->zipCode,
+            'timezone' => $location->timezone,
         ]);
     }
 
@@ -72,7 +182,7 @@ class PortfolioController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'fullname' => 'required|string|max:255',
-                'email' => 'required|email|max:255',
+                'email' => 'required|email|max:255|unique:contactmes`',
                 'message' => 'required|string|min:5',
             ]);
 

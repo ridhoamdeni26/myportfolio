@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Slider from "react-slick";
 import PortfolioModal from "./PortfolioModal";
+import { motion } from 'framer-motion';
 
 export default function PotfolioCarousel({ portfolio }) {
     const [showModal, setShowModal] = useState(false);
@@ -23,51 +24,46 @@ export default function PotfolioCarousel({ portfolio }) {
     };
 
     const settings = {
-        dots: true,
+        dots: portfolio.length > 2,
         lazyLoad: true,
         infinite: true,
-        slidesToShow: 3,
+        slidesToShow: Math.min(3, portfolio.length),
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 3000,
         pauseOnHover: true,
-        responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 3,
-                    infinite: true,
-                    dots: true,
-                },
-            },
-            {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2,
-                    initialSlide: 2,
-                },
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                },
-            },
-        ],
     };
+
+    const fadeInVariants = {
+        hidden: { opacity: 0 },
+        visible: { opacity: 1 },
+    };
+
+    const imageHoverVariants = {
+        hover: { scale: 1.1 },
+        tap: { scale: 0.9 },
+    };
+
     return (
         <>
             <div className="portfolio_list w-full float-left mt-[40px] mb-[120px]">
                 <Slider {...settings}>
                     {portfolio.map((portfolio) => (
-                        <div key={portfolio.id} className="cursor-grab">
+                        <motion.div
+                            key={portfolio.id}
+                            className="cursor-grab"
+                            initial="hidden"
+                            animate="visible"
+                            variants={fadeInVariants}
+                        >
                             <div className="carousel-item relative rounded-[4px] overflow-hidden mb-[25px]">
-                                <img
+                                <motion.img
                                     src={portfolio.image_thumbnail}
                                     className="rounded-box"
+                                    alt=""
+                                    whileHover="hover"
+                                    whileTap="tap"
+                                    variants={imageHoverVariants}
                                 />
                             </div>
                             <div className="details w-full float-left">
@@ -83,7 +79,7 @@ export default function PotfolioCarousel({ portfolio }) {
                                     {truncateText(portfolio.description, 150)}
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                     ))}
                 </Slider>
             </div>

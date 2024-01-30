@@ -1,8 +1,18 @@
-import React from 'react'
+import { motion } from 'framer-motion';
 
 export default function AboutmeDetail() {
+    const componentVariants = {
+        hidden: { opacity: 0, y: 50 },
+        visible: { opacity: 1, y: 0 },
+    };
     return (
-        <div className="right w-[60%]">
+        <motion.div
+            className="right w-[60%]"
+            initial="hidden"
+            animate="visible"
+            variants={componentVariants}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+        >
             <div className="text w-full float-left mb-[44px]">
                 <p className="mb-[30px]">
                     Hello there! My name is{" "}
@@ -47,6 +57,6 @@ export default function AboutmeDetail() {
                     industry.
                 </p>
             </div>
-        </div>
+        </motion.div>
     )
 }

@@ -1,6 +1,18 @@
+import { motion } from 'framer-motion';
 export default function ContactDetail({ profiles }) {
+    const slideInVariants = {
+        hidden: { x: '-100%' },
+        visible: { x: 0 },
+    };
     return (
-        <div className="left w-1/2 pr-[50px]">
+
+        <motion.div
+            className="left w-1/2 pr-[50px]"
+            initial="hidden"
+            animate="visible"
+            variants={slideInVariants}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+        >
             <div className="elisc_tm_title w-full float-left">
                 <span className="w-full float-left font-medium uppercase inline-block mb-[12px]">
                     - Let's Connect
@@ -16,23 +28,23 @@ export default function ContactDetail({ profiles }) {
             </div>
             <div className="info w-full float-left">
                 <ul>
-                    <li className="mb-[8px] w-full float-left">
-                        <div className="text-dark-color font-semibold font-inter inline-block relative">
+                    <li className="mb-[2px] w-full float-left">
+                        <div className="text-[#A5A6FF] font-semibold font-inter inline-block relative">
                             {profiles.phone}
                         </div>
                     </li>
-                    <li className="mb-[8px] w-full float-left">
-                        <div className="text-dark-color font-semibold font-inter inline-block relative">
+                    <li className="mb-[2px] w-full float-left">
+                        <div className="text-[#A5A6FF] font-semibold font-inter inline-block relative">
                             {profiles.email}
                         </div>
                     </li>
                     <li className="w-full float-left">
-                        <div className="href_location text-dark-color font-semibold font-inter inline-block relative">
+                        <div className="text-[#A5A6FF] font-semibold font-inter inline-block relative">
                             {profiles.city}, {profiles.country}
                         </div>
                     </li>
                 </ul>
             </div>
-        </div>
+        </motion.div>
     );
 }

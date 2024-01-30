@@ -1,12 +1,32 @@
-import React from 'react'
+import { motion } from 'framer-motion';
 
 export default function ExperienceModal({ showModal, closeModal, experience }) {
+    const fadeInVariants = {
+        hidden: { opacity: 0 },
+        visible: { opacity: 1 },
+    };
+
+
     return (
         <div>
             {showModal && (
                 <>
-                    <div className="modal-overlay"></div>
-                    <dialog id="my_modal_3" className="modal" open>
+                    <motion.div
+                        className="modal-overlay"
+                        initial="hidden"
+                        animate="visible"
+                        variants={fadeInVariants}
+                        transition={{ duration: 0.3 }}
+                    ></motion.div>
+                    <motion.dialog
+                        id="my_modal_2"
+                        className="modal"
+                        open
+                        initial="hidden"
+                        animate="visible"
+                        variants={fadeInVariants}
+                        transition={{ duration: 0.5 }}
+                    >
                         <div className="modal-box">
                             <form method="dialog">
                                 <button
@@ -42,7 +62,7 @@ export default function ExperienceModal({ showModal, closeModal, experience }) {
                                 </p>
                             </div>
                         </div>
-                    </dialog>
+                    </motion.dialog>
                 </>
             )}
         </div>

@@ -22,7 +22,7 @@
     @inertiaHead
 </head>
 
-<body class="font-sans antialiased">
+<body class="font-inter dashcode-app antialiased dark" id="body_class">
     @inertia
 </body>
 

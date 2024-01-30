@@ -2,6 +2,7 @@ import { useForm } from "@inertiajs/react";
 import InputError from "@/Components/InputError";
 import PrimaryButton from "@/Components/PrimaryButton";
 import { useToasts } from "react-toast-notifications";
+import { motion } from 'framer-motion';
 
 export default function ContactForm() {
     const { addToast } = useToasts();
@@ -39,8 +40,19 @@ export default function ContactForm() {
         });
     };
 
+    const slideInVariants = {
+        hidden: { x: '100%' },
+        visible: { x: 0 },
+    };
+
     return (
-        <div className="right w-1/2 pl-[50px]">
+        <motion.div
+            className="right w-1/2 pl-[50px]"
+            initial="hidden"
+            animate="visible"
+            variants={slideInVariants}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+        >
             <div className="fields w-full float-left h-auto clear-both">
                 <form onSubmit={submit}>
                     <div
@@ -109,6 +121,6 @@ export default function ContactForm() {
                     </div>
                 </form>
             </div>
-        </div>
+        </motion.div>
     );
 }
