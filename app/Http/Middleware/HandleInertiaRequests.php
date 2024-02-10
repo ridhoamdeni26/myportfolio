@@ -38,6 +38,10 @@ class HandleInertiaRequests extends Middleware
             'flash' => [
                 'message' => fn () => $request->session()->get('message')
             ],
+            'toast' => [
+                'type' =>  $request->session()->get('type'),
+                'message' => $request->session()->get('message'),
+            ],
             'ziggy' => fn () => [
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),

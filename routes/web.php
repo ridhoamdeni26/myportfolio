@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\AboutmeController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\HomepageController;
 use App\Http\Controllers\Frontend\PortfolioController;
@@ -40,7 +41,14 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
 
 Route::middleware('auth', 'verified')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Homepage
     Route::get('/homepage-admin', [HomepageController::class, 'index'])->name('homepage.admin');
+    Route::post('/homepage-update-profile/{id}',  [HomepageController::class, 'updateProfile'])->name('homepage.update.profile');
+
+    // Aboutme
+    Route::get('/aboutme-admin', [AboutmeController::class, 'index'])->name('aboutme.admin');
+    Route::put('/aboutme-update/{id}',  [AboutmeController::class, 'update'])->name('aboutme.update');
 });
 
 Route::get('/dashboard-test', function () {

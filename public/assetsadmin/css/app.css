@@ -10970,7 +10970,7 @@ ul.custom-list ul li{
 .sidebar-wrapper{
   position: fixed;
   top: 0px;
-  z-index: 999;
+  z-index: 99;
   height: 100vh;
   width: 248px;
   --tw-bg-opacity: 1;

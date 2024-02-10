@@ -182,7 +182,7 @@ class PortfolioController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'fullname' => 'required|string|max:255',
-                'email' => 'required|email|max:255|unique:contactmes`',
+                'email' => 'required|email|max:255|unique:contactmes',
                 'message' => 'required|string|min:5',
             ]);
 

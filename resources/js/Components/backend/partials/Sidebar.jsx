@@ -55,9 +55,8 @@ export default function Sidebar({ currentPage }) {
                         <li>
                             <Link
                                 href="/dashboard"
-                                className={`mb-2 navItem ${
-                                    currentPage === "dashboard" ? "active" : ""
-                                }`}
+                                className={`mb-2 navItem ${currentPage === "dashboard" ? "active" : ""
+                                    }`}
                             >
                                 <span className="flex items-center">
                                     <Icon
@@ -71,11 +70,10 @@ export default function Sidebar({ currentPage }) {
                         <li>
                             <Link
                                 href="/homepage-admin"
-                                className={`mb-2 navItem ${
-                                    currentPage === "homepage-admin"
-                                        ? "active"
-                                        : ""
-                                }`}
+                                className={`mb-2 navItem ${currentPage === "homepage-admin"
+                                    ? "active"
+                                    : ""
+                                    }`}
                             >
                                 <span className="flex items-center">
                                     <Icon
@@ -83,6 +81,23 @@ export default function Sidebar({ currentPage }) {
                                         icon="heroicons-outline:home"
                                     />
                                     <span>Home Page</span>
+                                </span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                href="/aboutme-admin"
+                                className={`mb-2 navItem ${currentPage === "aboutme-admin"
+                                    ? "active"
+                                    : ""
+                                    }`}
+                            >
+                                <span className="flex items-center">
+                                    <Icon
+                                        className="nav-icon mr-3"
+                                        icon="heroicons:identification-16-solid"
+                                    />
+                                    <span>Aboutme</span>
                                 </span>
                             </Link>
                         </li>
