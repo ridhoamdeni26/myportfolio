@@ -4,7 +4,7 @@ import InputLabel from "@/Components/InputLabel";
 import InputError from "@/Components/InputError";
 import TextInput from "@/Components/TextInput";
 import PrimaryButton from "@/Components/PrimaryButton";
-import { useState } from 'react';
+import { useState } from "react";
 import { useToasts } from "react-toast-notifications";
 
 function index({ auth, breadcrumb, currentPage }) {
@@ -12,7 +12,7 @@ function index({ auth, breadcrumb, currentPage }) {
     const { addToast } = useToasts();
 
     const { data, setData, post, errors, processing } = useForm({
-        ...profiles
+        ...profiles,
     });
 
     const [filePreview, setFilePreview] = useState(null);
@@ -46,7 +46,7 @@ function index({ auth, breadcrumb, currentPage }) {
         }
 
         post(route("homepage.update.profile", profiles.id), {
-            _method: 'put',
+            _method: "put",
             ...data,
             onSuccess: (page) => {
                 setFilePreview(null);
@@ -61,7 +61,7 @@ function index({ auth, breadcrumb, currentPage }) {
                 }
             },
             onError: (errors) => {
-                console.log(errors)
+                console.log(errors);
                 Object.keys(errors).forEach((fieldName) => {
                     const errorMessage = errors[fieldName];
                     addToast(errorMessage, {
@@ -107,7 +107,9 @@ function index({ auth, breadcrumb, currentPage }) {
                                     autoComplete="off"
                                     className="form-control !py-1 !text-xs ml-2"
                                     value={data.name}
-                                    onChange={(e) => setData({ ...data, year: e.target.value })}
+                                    onChange={(e) =>
+                                        setData("name", e.target.value)
+                                    }
                                 />
 
                                 <InputError
@@ -254,13 +256,26 @@ function index({ auth, breadcrumb, currentPage }) {
                                         className="w-full hidden"
                                         name="image_icon"
                                         accept=".jpg, .jpeg, .png"
-                                        onChange={(e) => handleFileChange(e, setFilePreview, 'image_icon')}
+                                        onChange={(e) =>
+                                            handleFileChange(
+                                                e,
+                                                setFilePreview,
+                                                "image_icon"
+                                            )
+                                        }
                                     />
                                     <span className="!py-1 !text-xs ml-2 w-full h-[40px] file-control flex items-center custom-class">
                                         <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
-                                            <span id="placeholder" className="text-slate-400">Choose a file or drop it here...</span>
+                                            <span
+                                                id="placeholder"
+                                                className="text-slate-400"
+                                            >
+                                                Choose a file or drop it here...
+                                            </span>
                                         </span>
-                                        <span className="file-name flex-none cursor-pointer border-l px-4 border-slate-200 dark:border-slate-700 h-full inline-flex items-center bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-sm rounded-tr rounded-br font-normal">Browse</span>
+                                        <span className="file-name flex-none cursor-pointer border-l px-4 border-slate-200 dark:border-slate-700 h-full inline-flex items-center bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-sm rounded-tr rounded-br font-normal">
+                                            Browse
+                                        </span>
                                     </span>
                                 </label>
                                 <div id="file-preview" className="ml-8">
@@ -294,13 +309,26 @@ function index({ auth, breadcrumb, currentPage }) {
                                         className="w-full hidden"
                                         name="image_homepage"
                                         accept=".jpg, .jpeg, .png"
-                                        onChange={(e) => handleFileChange(e, setFileHomepagePreview, 'image_homepage')}
+                                        onChange={(e) =>
+                                            handleFileChange(
+                                                e,
+                                                setFileHomepagePreview,
+                                                "image_homepage"
+                                            )
+                                        }
                                     />
                                     <span className="!py-1 !text-xs ml-2 w-full h-[40px] file-control flex items-center custom-class">
                                         <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
-                                            <span id="placeholder" className="text-slate-400">Choose a file or drop it here...</span>
+                                            <span
+                                                id="placeholder"
+                                                className="text-slate-400"
+                                            >
+                                                Choose a file or drop it here...
+                                            </span>
                                         </span>
-                                        <span className="file-name flex-none cursor-pointer border-l px-4 border-slate-200 dark:border-slate-700 h-full inline-flex items-center bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-sm rounded-tr rounded-br font-normal">Browse</span>
+                                        <span className="file-name flex-none cursor-pointer border-l px-4 border-slate-200 dark:border-slate-700 h-full inline-flex items-center bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-sm rounded-tr rounded-br font-normal">
+                                            Browse
+                                        </span>
                                     </span>
                                 </label>
                                 <div id="file-preview" className="ml-8">
@@ -322,7 +350,13 @@ function index({ auth, breadcrumb, currentPage }) {
                             </div>
 
                             <div className="flex justify-end mt-4">
-                                <PrimaryButton type="submit" disabled={processing} className="btn btn-wide btn-md inline-flex justify-center btn-dark rounded-[100px]">Submit</PrimaryButton>
+                                <PrimaryButton
+                                    type="submit"
+                                    disabled={processing}
+                                    className="btn btn-wide btn-md inline-flex justify-center btn-dark rounded-[100px]"
+                                >
+                                    Submit
+                                </PrimaryButton>
                             </div>
                         </div>
                     </form>

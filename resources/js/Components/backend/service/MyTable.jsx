@@ -1,39 +1,71 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import DataTable, { createTheme } from "react-data-table-component";
+import { Icon } from "@iconify/react";
+import { router } from "@inertiajs/react";
+import { useToasts } from "react-toast-notifications";
 
-function MyTable({ columns, data, name }) {
-    const [searchTerm, setSearchTerm] = useState("");
-    const [perPage, setPerPage] = useState(10);
+function myTable({ columns, services, name, nowPage, perPage }) {
+    const { addToast } = useToasts();
     const [pending, setPending] = useState(true);
+    const [selectedRows, setSelectedRows] = useState([]);
     const [rows, setRows] = useState([]);
+    const [deleteSuccess, setDeleteSuccess] = useState(false);
 
-    const handlePerPageChange = (newPerPage) => {
-        setPerPage(newPerPage);
+    const [selectedPage, setSelectedPage] = useState(nowPage);
+    const [selectedPerPage, setSelectedPerPage] = useState(perPage);
+    const [searchTerm, setSearchTerm] = useState("");
+
+    const handleChange = (pageNumber, newPerPage) => {
+        setSelectedPage(pageNumber);
+        setSelectedPerPage(newPerPage);
+        const newUrl = `/services-admin?page=${pageNumber}&perPage=${newPerPage}`;
+        router.visit(newUrl, { preserveState: true });
     };
 
-    const handleSearchChange = (e) => {
-        setSearchTerm(e.target.value);
+    const handlePageChange = (pageNumber) => {
+        handleChange(pageNumber, selectedPerPage);
+    };
+
+    const handlePerPageChange = (newPerPage) => {
+        setSelectedPage(1);
+        handleChange(1, newPerPage);
     };
 
     useEffect(() => {
         const fetchData = async () => {
             await new Promise((resolve) => setTimeout(resolve, 2000));
-            setRows(data);
+            setRows(services);
             setPending(false);
         };
         fetchData();
-    }, [data]);
+    }, [services]);
 
-    const filteredData = data.filter((item) =>
-        Object.values(item).some(
-            (value) =>
-                typeof value === "string" &&
-                value.toLowerCase().includes(searchTerm.toLowerCase())
-        )
-    );
+    const handleSearchChange = (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        setSearchTerm(searchTerm);
+    };
 
-    const handleChange = ({ selectedRows }) => {
-        console.log("Selected Rows: ", selectedRows);
+    const filteredData = searchTerm
+        ? services.data.filter((exp) => {
+              const year = exp.ip_address.toLowerCase();
+              const job = exp.operating_system.toLowerCase();
+              const place = exp.place.toLowerCase();
+
+              return (
+                  year.includes(searchTerm) ||
+                  job.includes(searchTerm) ||
+                  place.includes(searchTerm)
+              );
+          })
+        : services.data;
+
+    const selectedRowsChange = ({ selectedRows }) => {
+        setSelectedRows(selectedRows);
+        setDeleteSuccess(false);
+    };
+
+    const successDelete = () => {
+        setDeleteSuccess(true);
     };
 
     // Theme
@@ -78,17 +110,33 @@ function MyTable({ columns, data, name }) {
         "dark"
     );
 
-
-
     return (
         <div className="card">
             <header className="card-header noborder">
                 <h4 className="card-title">{name} Table</h4>
             </header>
 
+            {!deleteSuccess && selectedRows.length > 0 && (
+                <div className="mx-4">
+                    <div className="py-[18px] px-6 font-normal text-sm rounded-md bg-danger-500 text-white">
+                        <div className="flex items-center space-x-3">
+                            <button onClick={selectedDelete}>
+                                <Icon
+                                    className="text-2xl flex-0"
+                                    icon="heroicons:trash"
+                                />
+                            </button>
+                            <p className="flex-1 font-Inter">
+                                {selectedRows.length} items selected
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <div className="card-body px-6 pb-6">
                 <div className="overflow-x-auto -mx-6 dashcode-data-table">
-                    <div className="flex justify-between items-center mb-2 px-6">
+                    <div className="flex justify-between items-center mb-4 px-6">
                         <div className="flex items-center">
                             <label htmlFor="rowsPerPage" className="mr-2">
                                 Rows per page:
@@ -96,7 +144,11 @@ function MyTable({ columns, data, name }) {
                             <select
                                 id="rowsPerPage"
                                 value={perPage}
-                                onChange={(e) => handlePerPageChange(parseInt(e.target.value, 10))}
+                                onChange={(e) =>
+                                    handlePerPageChange(
+                                        parseInt(e.target.value, 10)
+                                    )
+                                }
                                 className="border p-1"
                             >
                                 <option value={10}>10</option>
@@ -136,7 +188,7 @@ function MyTable({ columns, data, name }) {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default MyTable
+export default myTable;

@@ -1,34 +1,47 @@
 import React, { useState } from "react";
 import AuthLayout from "@/Layouts/Admin/AuthLayout";
-import { Head, usePage } from "@inertiajs/react";
-import { Icon } from "@iconify/react";
-import DataTable from "@/Components/backend/aboutme/MyTable";
-import ModalAboutMe from "@/Components/backend/aboutme/ModalAboutMe";
-import CreateForm from "@/Components/backend/aboutme/CreateForm";
+import { Head } from "@inertiajs/react";
 import DeleteForm from "@/Components/backend/aboutme/DeleteForm";
-import Swal from "sweetalert2";
+import TableService from "@/Components/backend/service/MyTable";
+import CreateForm from "@/Components/backend/service/CreateForm";
+import { Icon } from "@iconify/react";
 
-function Index({ auth, breadcrumb, currentPage, exp, perPage, nowPage }) {
+function index({ auth, breadcrumb, currentPage, service, pageNow, perPage }) {
     const [isModalOpen, setModalOpen] = useState(false);
     const [isAddProjectModalOpen, setAddProjectModalOpen] = useState(false);
     const [selectedData, setSelectedData] = useState(null);
     const [actionType, setActionType] = useState(null);
 
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+
+        const formattedDay = day < 10 ? "0" + day : day;
+        const formattedMonth = month < 10 ? "0" + month : month;
+
+        return `${formattedDay}/${formattedMonth}/${year}`;
+    };
+
+    const openAddProjectModal = () => {
+        setAddProjectModalOpen(true);
+    };
+
+    const closeAddProjectModal = () => {
+        setAddProjectModalOpen(false);
+    };
+
     const columns = [
         {
-            name: "Year",
-            selector: (row) => row.year,
+            name: "Title",
+            selector: (row) => row.title,
             sortable: false,
         },
         {
-            name: "Name Job",
-            selector: (row) => row.job,
-            sortable: true,
-        },
-        {
-            name: "Place",
-            selector: (row) => row.place,
-            sortable: true,
+            name: "Created Date",
+            selector: (row) => formatDate(row.created_at),
+            sortable: false,
         },
         {
             name: "Action",
@@ -48,52 +61,28 @@ function Index({ auth, breadcrumb, currentPage, exp, perPage, nowPage }) {
                     >
                         <iconify-icon icon="heroicons:pencil-square"></iconify-icon>
                     </button>
-                    <DeleteForm id={row.id} onDelete={handleDelete} />
+                    {/* <DataTable
+                        data={service}
+                        columns={columns}
+                        name="Services"
+                    /> */}
                 </div>
             ),
         },
     ];
 
     const handleView = (id) => {
-        const selectedRow = exp.data.find((row) => row.id === id);
+        const selectedRow = service.find((row) => row.id === id);
         setSelectedData(selectedRow);
         setActionType("view");
         setModalOpen(true);
     };
 
     const handleEdit = (id) => {
-        const selectedRow = exp.data.find((row) => row.id === id);
+        const selectedRow = service.find((row) => row.id === id);
         setSelectedData(selectedRow);
         setActionType("edit");
         setModalOpen(true);
-    };
-
-    const handleDelete = (id) => {
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You will not be able to recover this data!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonText: "Yes, delete it!",
-            cancelButtonColor: "#d33",
-            cancelButtonText: "Cancel",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire("Deleted!", "Your data has been deleted.", "success");
-            }
-        });
-    };
-
-    const closeModal = () => {
-        setModalOpen(false);
-    };
-
-    const openAddProjectModal = () => {
-        setAddProjectModalOpen(true);
-    };
-
-    const closeAddProjectModal = () => {
-        setAddProjectModalOpen(false);
     };
 
     return (
@@ -102,7 +91,7 @@ function Index({ auth, breadcrumb, currentPage, exp, perPage, nowPage }) {
             breadcrumb={breadcrumb}
             currentPage={currentPage}
         >
-            <Head title="About Me" />
+            <Head title="Services" />
 
             <div className="grid justify-items-end">
                 <button
@@ -114,34 +103,26 @@ function Index({ auth, breadcrumb, currentPage, exp, perPage, nowPage }) {
                             className="text-xl mr-1"
                             icon="ph:plus-bold"
                         ></Icon>
-                        <span>Add Experience</span>
+                        <span>Add Project</span>
                     </span>
                 </button>
             </div>
 
-            <DataTable
-                exps={exp}
+            <TableService
+                services={service}
                 columns={columns}
-                name="About Me"
-                perPage={perPage}
+                name="Serives"
                 nowPage={nowPage}
-            />
-
-            <ModalAboutMe
-                isOpen={isModalOpen}
-                closeModal={closeModal}
-                actionType={actionType}
-                selectedData={selectedData}
-                nameModal="Aboutme"
+                perPage={perPage}
             />
 
             <CreateForm
                 isOpen={isAddProjectModalOpen}
                 closeModal={closeAddProjectModal}
-                nameModal="Create Experience"
+                nameModal="Create Services"
             />
         </AuthLayout>
     );
 }
 
-export default Index;
+export default index;

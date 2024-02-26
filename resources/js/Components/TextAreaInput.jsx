@@ -1,18 +1,26 @@
-import React from 'react'
+import React from "react";
 
-function TextAreaInput({ id, defaultValue, onChange, disabled, placeholder, name }) {
+function TextAreaInput({
+    id,
+    value,
+    onChange,
+    disabled,
+    placeholder,
+    name,
+    className = "",
+}) {
     return (
         <textarea
             id={id}
             name={name}
             rows="4"
-            className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            defaultValue={defaultValue}
+            className="form-control !pr-9"
+            value={value}
             onChange={onChange}
             disabled={disabled}
             placeholder={placeholder}
         />
-    )
+    );
 }
 
-export default TextAreaInput
+export default TextAreaInput;

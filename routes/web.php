@@ -3,6 +3,7 @@
 use App\Http\Controllers\Backend\AboutmeController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\HomepageController;
+use App\Http\Controllers\backend\ServicesController;
 use App\Http\Controllers\Frontend\PortfolioController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -48,7 +49,13 @@ Route::middleware('auth', 'verified')->group(function () {
 
     // Aboutme
     Route::get('/aboutme-admin', [AboutmeController::class, 'index'])->name('aboutme.admin');
-    Route::put('/aboutme-update/{id}',  [AboutmeController::class, 'update'])->name('aboutme.update');
+    Route::post('/aboutme-create',  [AboutmeController::class, 'create'])->name('aboutme.create');
+    Route::post('/aboutme-update/{id}',  [AboutmeController::class, 'update'])->name('aboutme.update');
+    Route::delete('/aboutme-delete/{id}',  [AboutmeController::class, 'delete'])->name('aboutme.delete');
+    Route::delete('/aboutme-delete-selected',  [AboutmeController::class, 'deleteSelected'])->name('aboutme.delete.selected');
+
+    // Services
+    Route::get('/services-admin', [ServicesController::class, 'index'])->name('services.admin');
 });
 
 Route::get('/dashboard-test', function () {

@@ -5,13 +5,12 @@ import DataTable, { createTheme } from "react-data-table-component";
 function VisitorTable({ visitors, perPage, nowPage }) {
     const [selectedPage, setSelectedPage] = useState(nowPage);
     const [selectedPerPage, setSelectedPerPage] = useState(perPage);
-    const [searchTerm, setSearchTerm] = useState('');
+    const [searchTerm, setSearchTerm] = useState("");
 
     const handleChange = (pageNumber, newPerPage) => {
         setSelectedPage(pageNumber);
         setSelectedPerPage(newPerPage);
         const newUrl = `/dashboard?page=${pageNumber}&perPage=${newPerPage}`;
-        console.log("masuk ke pageNumber", pageNumber, newPerPage);
         router.visit(newUrl, { preserveState: true });
     };
 
@@ -100,18 +99,18 @@ function VisitorTable({ visitors, perPage, nowPage }) {
 
     const filteredData = searchTerm
         ? visitors.data.filter((visitor) => {
-            const ipAddress = visitor.ip_address.toLowerCase();
-            const operatingSystem = visitor.operating_system.toLowerCase();
-            const city = visitor.city.toLowerCase();
-            const region = visitor.region.toLowerCase();
+              const ipAddress = visitor.ip_address.toLowerCase();
+              const operatingSystem = visitor.operating_system.toLowerCase();
+              const city = visitor.city.toLowerCase();
+              const region = visitor.region.toLowerCase();
 
-            return (
-                ipAddress.includes(searchTerm) ||
-                operatingSystem.includes(searchTerm) ||
-                city.includes(searchTerm) ||
-                region.includes(searchTerm)
-            );
-        })
+              return (
+                  ipAddress.includes(searchTerm) ||
+                  operatingSystem.includes(searchTerm) ||
+                  city.includes(searchTerm) ||
+                  region.includes(searchTerm)
+              );
+          })
         : visitors.data;
 
     return (
@@ -142,12 +141,16 @@ function VisitorTable({ visitors, perPage, nowPage }) {
                                 pagination
                                 paginationPerPage={selectedPerPage}
                                 paginationTotalRows={visitors.total}
-                                paginationRowsPerPageOptions={[10, 15, 20, 25, 30]}
+                                paginationRowsPerPageOptions={[
+                                    10, 15, 20, 25, 30,
+                                ]}
                                 paginationServer
                                 paginationDefaultPage={selectedPage}
                                 onChangePage={handlePageChange}
                                 onChangeRowsPerPage={handlePerPageChange}
                                 currentPage={selectedPage}
+                                customStyles={customStyles}
+                                theme="solarized"
                             />
                         </div>
                     </div>

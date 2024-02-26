@@ -65,7 +65,12 @@ class AuthenticatedSessionController extends Controller
 
         ]);
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        return redirect(route('dashboard'))->with([
+            'message' => 'Welcome Admin',
+            'type' => 'success'
+        ]);
+
+        // return redirect()->intended(RouteServiceProvider::HOME);
     }
 
     /**
