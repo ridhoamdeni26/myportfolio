@@ -30,7 +30,22 @@ class DashboardController extends Controller
             ->orderByDesc('visit_time')
             ->first();
 
-        $visitors = Visitor::latest()->get();
+        $perPage = $request->has('perPage') ? $request->perPage : 10;
+        $page = $request->has('page') ? $request->page : 1;
+
+        $query = Visitor::latest();
+
+        if ($request->has('search')) {
+            $searchTerm = $request->input('search');
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('ip_address', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('operating_system', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('city', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('region', 'like', '%' . $searchTerm . '%');
+            });
+        }
+
+        $visitors = $query->paginate($perPage, ['*'], 'page', $page);
 
         return Inertia::render('Dashboard/Index', [
             'breadcrumb' => $breadcrumb,
@@ -39,6 +54,8 @@ class DashboardController extends Controller
             'latestVisitorWithCity' => $latestVisitorWithCity,
             'visitors' => $visitors,
             'currentPage' => $currentPage,
+            'perPage' => $perPage,
+            'nowPage' => $page,
         ]);
     }
 }
