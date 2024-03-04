@@ -22,10 +22,12 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "flatpickr": "^4.6.13",
         "framer-motion": "^10.18.0",
         "prop-types": "^15.8.1",
         "react-apexcharts": "^1.4.1",
         "react-data-table-component": "^7.6.2",
+        "react-flatpickr": "^3.10.13",
         "react-intersection-observer": "^9.5.3",
         "react-slick": "^0.29.0",
         "react-toast-notifications": "^2.5.1",

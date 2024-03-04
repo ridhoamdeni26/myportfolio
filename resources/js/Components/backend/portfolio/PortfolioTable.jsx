@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import DataTable, { createTheme } from "react-data-table-component";
 import Swal from "sweetalert2";
 import { Icon } from "@iconify/react";
 import { router } from "@inertiajs/react";
 import { useToasts } from "react-toast-notifications";
 
-function myTable({ columns, services, name, nowPage, perPage }) {
+function PortfolioTable({ columns, portfolios, name, perPage, nowPage }) {
     const { addToast } = useToasts();
     const [pending, setPending] = useState(true);
     const [selectedRows, setSelectedRows] = useState([]);
@@ -19,7 +19,7 @@ function myTable({ columns, services, name, nowPage, perPage }) {
     const handleChange = (pageNumber, newPerPage) => {
         setSelectedPage(pageNumber);
         setSelectedPerPage(newPerPage);
-        const newUrl = `/services-admin?page=${pageNumber}&perPage=${newPerPage}`;
+        const newUrl = `/portfolio-admin?page=${pageNumber}&perPage=${newPerPage}`;
         router.visit(newUrl, { preserveState: true });
     };
 
@@ -35,11 +35,11 @@ function myTable({ columns, services, name, nowPage, perPage }) {
     useEffect(() => {
         const fetchData = async () => {
             await new Promise((resolve) => setTimeout(resolve, 2000));
-            setRows(services);
+            setRows(portfolios);
             setPending(false);
         };
         fetchData();
-    }, [services]);
+    }, [portfolios]);
 
     const handleSearchChange = (e) => {
         const searchTerm = e.target.value.toLowerCase();
@@ -47,14 +47,18 @@ function myTable({ columns, services, name, nowPage, perPage }) {
     };
 
     const filteredData = searchTerm
-        ? services.data.filter((service) => {
-            const title = service.title.toLowerCase();
+        ? portfolios.data.filter((portfolio) => {
+            const title = portfolio.title.toLowerCase();
+            const client_name = portfolio.client_name.toLowerCase();
+            const category = portfolio.category.toLowerCase();
 
             return (
-                title.includes(searchTerm)
+                title.includes(searchTerm) ||
+                client_name.includes(searchTerm) ||
+                category.includes(searchTerm)
             );
         })
-        : services.data;
+        : portfolios.data;
 
     const selectedRowsChange = ({ selectedRows }) => {
         setSelectedRows(selectedRows);
@@ -63,49 +67,6 @@ function myTable({ columns, services, name, nowPage, perPage }) {
 
     const successDelete = () => {
         setDeleteSuccess(true);
-    };
-
-    const selectedDelete = (id) => {
-        const ids = selectedRows.map((row) => row.id);
-        Swal.fire({
-            title: "Are you sure?",
-            text: `You are about to delete ${selectedRows.length} item(s)`,
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonText: "Yes, delete it!",
-            cancelButtonColor: "#d33",
-            cancelButtonText: "Cancel",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                const ids = selectedRows.map((row) => row.id);
-                router.delete(route("services.delete.selected"), {
-                    data: {
-                        ids: ids,
-                    },
-                    onSuccess: (page) => {
-                        successDelete();
-                        if (page.props.toast) {
-                            const { type, message } = page.props.toast;
-                            addToast(message, {
-                                appearance: type,
-                                autoDismiss: true,
-                                autoDismissTimeout: 5000,
-                            });
-                        }
-                    },
-                    onError: (errors) => {
-                        Object.keys(errors).forEach((fieldName) => {
-                            const errorMessage = errors[fieldName];
-                            addToast(errorMessage, {
-                                appearance: "error",
-                                autoDismiss: true,
-                                autoDismissTimeout: 5000,
-                            });
-                        });
-                    },
-                });
-            }
-        });
     };
 
     // Theme
@@ -149,7 +110,6 @@ function myTable({ columns, services, name, nowPage, perPage }) {
         },
         "dark"
     );
-
     return (
         <div className="card">
             <header className="card-header noborder">
@@ -196,7 +156,7 @@ function myTable({ columns, services, name, nowPage, perPage }) {
                                 progressPending={pending}
                                 pagination
                                 paginationPerPage={selectedPerPage}
-                                paginationTotalRows={services.total}
+                                paginationTotalRows={portfolios.total}
                                 paginationRowsPerPageOptions={[
                                     10, 15, 20, 25, 30,
                                 ]}
@@ -216,7 +176,7 @@ function myTable({ columns, services, name, nowPage, perPage }) {
                 </div>
             </div>
         </div>
-    );
+    )
 }
 
-export default myTable;
+export default PortfolioTable

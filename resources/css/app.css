@@ -6,3 +6,20 @@
 .flex::after {
     display: none !important;
 }
+
+.flatpickr-current-month {
+    bottom: 1rem;
+    height: 37px !important;
+}
+
+.flatpickr-current-month .numInputWrapper {
+    width: 8ch !important;
+}
+
+.numInputWrapper span.arrowDown {
+    top: 36% !important;
+}
+
+.numInputWrapper span.arrowUp{
+    top: 5px !important;
+}

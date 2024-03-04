@@ -75,7 +75,7 @@ class AboutmeController extends Controller
         $experience = Experiences::find($request->id);
 
         if (!$experience) {
-            return redirect(route('homepage.admin'))->with([
+            return redirect(route('aboutme.admin'))->with([
                 'message' => 'Experience not found',
                 'type' => 'error'
             ]);
@@ -109,7 +109,7 @@ class AboutmeController extends Controller
         $experience = Experiences::find($id);
 
         if (!$experience) {
-            return redirect(route('homepage.admin'))->with([
+            return redirect(route('aboutme.admin'))->with([
                 'message' => 'Experience not found',
                 'type' => 'error'
             ]);

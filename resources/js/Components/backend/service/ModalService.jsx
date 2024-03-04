@@ -8,13 +8,11 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import { useToasts } from "react-toast-notifications";
 import { Icon } from "@iconify/react";
 
-function ModalAboutMe({
-    isOpen,
+function ModalService({ isOpen,
     closeModal,
     actionType,
     nameModal,
-    selectedData,
-}) {
+    selectedData }) {
     const { addToast } = useToasts();
 
     const [filePreview, setFilePreview] = useState(null);
@@ -53,14 +51,14 @@ function ModalAboutMe({
         }
     };
 
-    const updateAboutMe = (e) => {
+    const updateServices = (e) => {
         e.preventDefault();
 
         if (data.image === selectedData.image) {
             delete data.image;
         }
 
-        post(route("aboutme.update", selectedData.id), {
+        post(route("services.update", selectedData.id), {
             ...data,
             onSuccess: (page) => {
                 setFilePreview(null);
@@ -86,6 +84,7 @@ function ModalAboutMe({
             },
         });
     };
+
 
     return (
         <>
@@ -125,34 +124,34 @@ function ModalAboutMe({
                                     <span className="sr-only">Close modal</span>
                                 </button>
                             </div>
-                            <form onSubmit={updateAboutMe}>
+                            <form onSubmit={updateServices}>
                                 <div className="card">
                                     <div className="card-body flex flex-col p-6">
                                         <div className="card-text h-full space-y-4">
                                             <div className="input-area">
                                                 <InputLabel
-                                                    htmlFor="year"
+                                                    htmlFor="title"
                                                     value="Year"
                                                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                                 />
 
                                                 <div className="relative">
                                                     <TextInput
-                                                        id="year"
+                                                        id="title"
                                                         type="text"
-                                                        name="year"
-                                                        className={`form-control !pr-9 ${errors.year
-                                                                ? "!border-danger-500"
-                                                                : ""
+                                                        name="title"
+                                                        className={`form-control !pr-9 ${errors.title
+                                                            ? "!border-danger-500"
+                                                            : ""
                                                             }`}
-                                                        value={data.year}
+                                                        value={data.title}
                                                         onChange={
                                                             handleInputChange
                                                         }
                                                         disabled={isViewAction}
                                                         autoComplete="off"
                                                     />
-                                                    {errors.year && (
+                                                    {errors.title && (
                                                         <Icon
                                                             className={`absolute top-1/2 right-3 -translate-y-1/2 text-danger-500 text-xl`}
                                                             icon="mdi:warning-octagon-outline"
@@ -161,101 +160,27 @@ function ModalAboutMe({
                                                 </div>
 
                                                 <InputErrorBackend
-                                                    message={errors.year}
+                                                    message={errors.title}
                                                 />
                                             </div>
 
                                             <div className="input-area">
                                                 <InputLabel
-                                                    htmlFor="job"
-                                                    value="Job"
-                                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                                />
-
-                                                <div className="relative">
-                                                    <TextInput
-                                                        id="job"
-                                                        type="text"
-                                                        name="job"
-                                                        className={`form-control !pr-9 ${errors.job
-                                                                ? "!border-danger-500"
-                                                                : ""
-                                                            }`}
-                                                        value={data.job}
-                                                        onChange={
-                                                            handleInputChange
-                                                        }
-                                                        disabled={isViewAction}
-                                                        autoComplete="off"
-                                                    />
-
-                                                    {errors.job && (
-                                                        <Icon
-                                                            className={`absolute top-1/2 right-3 -translate-y-1/2 text-danger-500 text-xl`}
-                                                            icon="mdi:warning-octagon-outline"
-                                                        ></Icon>
-                                                    )}
-                                                </div>
-
-                                                <InputErrorBackend
-                                                    message={errors.job}
-                                                />
-                                            </div>
-
-                                            <div className="input-area">
-                                                <InputLabel
-                                                    htmlFor="place"
-                                                    value="Place"
-                                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                                />
-
-                                                <div className="relative">
-                                                    <TextInput
-                                                        id="place"
-                                                        type="text"
-                                                        name="place"
-                                                        className={`form-control !pr-9 ${errors.place
-                                                                ? "!border-danger-500"
-                                                                : ""
-                                                            }`}
-                                                        value={data.place}
-                                                        onChange={
-                                                            handleInputChange
-                                                        }
-                                                        disabled={isViewAction}
-                                                        autoComplete="off"
-                                                    />
-
-                                                    {errors.place && (
-                                                        <Icon
-                                                            className={`absolute top-1/2 right-3 -translate-y-1/2 text-danger-500 text-xl`}
-                                                            icon="mdi:warning-octagon-outline"
-                                                        ></Icon>
-                                                    )}
-                                                </div>
-
-                                                <InputErrorBackend
-                                                    message={errors.place}
-                                                />
-                                            </div>
-
-                                            <div className="input-area">
-                                                <InputLabel
-                                                    htmlFor="description_short"
+                                                    htmlFor="description"
                                                     value="Description Short"
                                                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                                 />
 
                                                 <div className="relative">
                                                     <TextAreaInput
-                                                        id="description_short"
-                                                        name="description_short"
-                                                        className={`${errors.description_short
-                                                                ? "!border-danger-500"
-                                                                : ""
+                                                        id="description"
+                                                        name="description"
+                                                        className={`${errors.description
+                                                            ? "!border-danger-500"
+                                                            : ""
                                                             }`}
                                                         value={
-                                                            data.description_short
+                                                            data.description
                                                         }
                                                         onChange={
                                                             handleInputChange
@@ -263,7 +188,7 @@ function ModalAboutMe({
                                                         disabled={isViewAction}
                                                         autoComplete="off"
                                                     />
-                                                    {errors.description_short && (
+                                                    {errors.description && (
                                                         <Icon
                                                             className={`absolute top-1/2 right-3 -translate-y-1/2 text-danger-500 text-xl`}
                                                             icon="mdi:warning-octagon-outline"
@@ -273,46 +198,7 @@ function ModalAboutMe({
 
                                                 <InputErrorBackend
                                                     message={
-                                                        errors.description_short
-                                                    }
-                                                />
-                                            </div>
-
-                                            <div className="input-area">
-                                                <InputLabel
-                                                    htmlFor="description_long"
-                                                    value="Description Long"
-                                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                                />
-
-                                                <div className="relative">
-                                                    <TextAreaInput
-                                                        id="description_long"
-                                                        name="description_long"
-                                                        className={`${errors.description_long
-                                                                ? "!border-danger-500"
-                                                                : ""
-                                                            }`}
-                                                        value={
-                                                            data.description_long
-                                                        }
-                                                        onChange={
-                                                            handleInputChange
-                                                        }
-                                                        disabled={isViewAction}
-                                                        autoComplete="off"
-                                                    />
-                                                    {errors.description_long && (
-                                                        <Icon
-                                                            className={`absolute top-1/2 right-3 -translate-y-1/2 text-danger-500 text-xl`}
-                                                            icon="mdi:warning-octagon-outline"
-                                                        ></Icon>
-                                                    )}
-                                                </div>
-
-                                                <InputErrorBackend
-                                                    message={
-                                                        errors.description_long
+                                                        errors.description
                                                     }
                                                 />
                                             </div>
@@ -423,7 +309,7 @@ function ModalAboutMe({
                 </div>
             )}
         </>
-    );
+    )
 }
 
-export default ModalAboutMe;
+export default ModalService

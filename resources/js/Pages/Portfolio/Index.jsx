@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import AuthLayout from "@/Layouts/Admin/AuthLayout";
-import { Head } from "@inertiajs/react";
-import TableService from "@/Components/backend/service/MyTable";
-import CreateForm from "@/Components/backend/service/CreateForm";
-import DeleteForm from "@/Components/backend/service/DeleteForm";
-import ModalService from "@/Components/backend/service/ModalService";
+import { Head, usePage } from "@inertiajs/react";
 import { Icon } from "@iconify/react";
+import PortfolioTable from "@/Components/backend/portfolio/PortfolioTable";
+import ModalAboutMe from "@/Components/backend/aboutme/ModalAboutMe";
+import CreateForm from "@/Components/backend/portfolio/CreateForm";
+import DeleteForm from "@/Components/backend/aboutme/DeleteForm";
+import Swal from "sweetalert2";
 
-function index({ auth, breadcrumb, currentPage, service, nowPage, perPage }) {
+function Index({ auth, breadcrumb, currentPage, portfolio, perPage, nowPage }) {
     const [isModalOpen, setModalOpen] = useState(false);
     const [isAddProjectModalOpen, setAddProjectModalOpen] = useState(false);
     const [selectedData, setSelectedData] = useState(null);
@@ -25,35 +26,6 @@ function index({ auth, breadcrumb, currentPage, service, nowPage, perPage }) {
         return `${formattedDay}/${formattedMonth}/${year}`;
     };
 
-    const closeModal = () => {
-        setModalOpen(false);
-    };
-
-    const openAddProjectModal = () => {
-        setAddProjectModalOpen(true);
-    };
-
-    const closeAddProjectModal = () => {
-        setAddProjectModalOpen(false);
-    };
-
-    const handleDelete = (id) => {
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You will not be able to recover this data!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonText: "Yes, delete it!",
-            cancelButtonColor: "#d33",
-            cancelButtonText: "Cancel",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire("Deleted!", "Your data has been deleted.", "success");
-            }
-        });
-    };
-
-
     const columns = [
         {
             name: "Title",
@@ -61,8 +33,18 @@ function index({ auth, breadcrumb, currentPage, service, nowPage, perPage }) {
             sortable: false,
         },
         {
-            name: "Created Date",
-            selector: (row) => formatDate(row.created_at),
+            name: "Client Name",
+            selector: (row) => row.client_name,
+            sortable: true,
+        },
+        {
+            name: "Category",
+            selector: (row) => row.category,
+            sortable: true,
+        },
+        {
+            name: "Date",
+            selector: (row) => formatDate(row.date),
             sortable: false,
         },
         {
@@ -83,7 +65,6 @@ function index({ auth, breadcrumb, currentPage, service, nowPage, perPage }) {
                     >
                         <iconify-icon icon="heroicons:pencil-square"></iconify-icon>
                     </button>
-                    <DeleteForm id={row.id} onDelete={handleDelete} />
                 </div>
             ),
         },
@@ -103,13 +84,26 @@ function index({ auth, breadcrumb, currentPage, service, nowPage, perPage }) {
         setModalOpen(true);
     };
 
+    const closeModal = () => {
+        setModalOpen(false);
+    };
+
+    const openAddProjectModal = () => {
+        setAddProjectModalOpen(true);
+    };
+
+    const closeAddProjectModal = () => {
+        setAddProjectModalOpen(false);
+    };
+
+
     return (
         <AuthLayout
             user={auth.user}
             breadcrumb={breadcrumb}
             currentPage={currentPage}
         >
-            <Head title="Services" />
+            <Head title="Portfolio Admin" />
 
             <div className="grid justify-items-end">
                 <button
@@ -126,29 +120,22 @@ function index({ auth, breadcrumb, currentPage, service, nowPage, perPage }) {
                 </button>
             </div>
 
-            <TableService
-                services={service}
+            <PortfolioTable
+                portfolios={portfolio}
                 columns={columns}
-                name="Serives"
+                name="portfolio"
                 nowPage={nowPage}
                 perPage={perPage}
-            />
-
-            <ModalService
-                isOpen={isModalOpen}
-                closeModal={closeModal}
-                actionType={actionType}
-                selectedData={selectedData}
-                nameModal="Service"
             />
 
             <CreateForm
                 isOpen={isAddProjectModalOpen}
                 closeModal={closeAddProjectModal}
-                nameModal="Create Services"
+                nameModal="Create Portfolio"
+                portfolios={portfolio}
             />
         </AuthLayout>
-    );
+    )
 }
 
-export default index;
+export default Index

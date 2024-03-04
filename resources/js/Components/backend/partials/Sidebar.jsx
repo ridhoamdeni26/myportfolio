@@ -55,9 +55,8 @@ export default function Sidebar({ currentPage }) {
                         <li>
                             <Link
                                 href="/dashboard"
-                                className={`mb-2 navItem ${
-                                    currentPage === "dashboard" ? "active" : ""
-                                }`}
+                                className={`mb-2 navItem ${currentPage === "dashboard" ? "active" : ""
+                                    }`}
                             >
                                 <span className="flex items-center">
                                     <Icon
@@ -71,11 +70,10 @@ export default function Sidebar({ currentPage }) {
                         <li>
                             <Link
                                 href="/homepage-admin"
-                                className={`mb-2 navItem ${
-                                    currentPage === "homepage-admin"
-                                        ? "active"
-                                        : ""
-                                }`}
+                                className={`mb-2 navItem ${currentPage === "homepage-admin"
+                                    ? "active"
+                                    : ""
+                                    }`}
                             >
                                 <span className="flex items-center">
                                     <Icon
@@ -89,11 +87,10 @@ export default function Sidebar({ currentPage }) {
                         <li>
                             <Link
                                 href="/aboutme-admin"
-                                className={`mb-2 navItem ${
-                                    currentPage === "aboutme-admin"
-                                        ? "active"
-                                        : ""
-                                }`}
+                                className={`mb-2 navItem ${currentPage === "aboutme-admin"
+                                    ? "active"
+                                    : ""
+                                    }`}
                             >
                                 <span className="flex items-center">
                                     <Icon
@@ -107,11 +104,10 @@ export default function Sidebar({ currentPage }) {
                         <li>
                             <Link
                                 href="/services-admin"
-                                className={`mb-2 navItem ${
-                                    currentPage === "services-admin"
-                                        ? "active"
-                                        : ""
-                                }`}
+                                className={`mb-2 navItem ${currentPage === "services-admin"
+                                    ? "active"
+                                    : ""
+                                    }`}
                             >
                                 <span className="flex items-center">
                                     <Icon
@@ -119,6 +115,23 @@ export default function Sidebar({ currentPage }) {
                                         icon="heroicons:wrench"
                                     />
                                     <span>Services</span>
+                                </span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                href="/portfolio-admin"
+                                className={`mb-2 navItem ${currentPage === "portfolio-admin"
+                                    ? "active"
+                                    : ""
+                                    }`}
+                            >
+                                <span className="flex items-center">
+                                    <Icon
+                                        className="nav-icon mr-3"
+                                        icon="heroicons:book-open"
+                                    />
+                                    <span>Portfolio</span>
                                 </span>
                             </Link>
                         </li>

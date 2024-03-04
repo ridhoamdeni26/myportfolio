@@ -3,6 +3,7 @@
 use App\Http\Controllers\Backend\AboutmeController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\HomepageController;
+use App\Http\Controllers\Backend\PortfolioController as BackendPortfolioController;
 use App\Http\Controllers\backend\ServicesController;
 use App\Http\Controllers\Frontend\PortfolioController;
 use App\Http\Controllers\ProfileController;
@@ -56,6 +57,14 @@ Route::middleware('auth', 'verified')->group(function () {
 
     // Services
     Route::get('/services-admin', [ServicesController::class, 'index'])->name('services.admin');
+    Route::post('/services-create',  [ServicesController::class, 'create'])->name('services.create');
+    Route::post('/services-update/{id}',  [ServicesController::class, 'update'])->name('services.update');
+    Route::delete('/services-delete/{id}',  [ServicesController::class, 'delete'])->name('services.delete');
+    Route::delete('/aboutme-delete-selected',  [ServicesController::class, 'deleteSelected'])->name('services.delete.selected');
+
+    // Portfolio
+    Route::get('/portfolio-admin', [BackendPortfolioController::class, 'index'])->name('portfolio.admin');
+    Route::post('/portfolio-create',  [BackendPortfolioController::class, 'create'])->name('portfolio.create');
 });
 
 Route::get('/dashboard-test', function () {
