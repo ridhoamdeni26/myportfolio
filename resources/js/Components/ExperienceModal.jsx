@@ -6,7 +6,6 @@ export default function ExperienceModal({ showModal, closeModal, experience }) {
         visible: { opacity: 1 },
     };
 
-
     return (
         <div>
             {showModal && (
@@ -27,18 +26,16 @@ export default function ExperienceModal({ showModal, closeModal, experience }) {
                         variants={fadeInVariants}
                         transition={{ duration: 0.5 }}
                     >
-                        <div className="modal-box">
-                            <form method="dialog">
-                                <button
-                                    className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-                                    onClick={closeModal}
-                                >
-                                    ✕
-                                </button>
-                            </form>
+                        <div className="modal-box bg-white">
+                            <button
+                                className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                                onClick={closeModal}
+                            >
+                                ✕
+                            </button>
                             <img
                                 className="mb-5"
-                                src={experience.image}
+                                src={`/storage/${experience.image}`}
                                 alt=""
                             />
                             <div className="short w-full float-left flex justify-between mb-[16px]">

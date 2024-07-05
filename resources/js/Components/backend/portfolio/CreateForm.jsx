@@ -170,7 +170,6 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
                                                             )
                                                         }
                                                         value={data.title}
-                                                        isFocused={true}
                                                         autoComplete="off"
                                                     />
                                                     {errors.title && (
@@ -208,7 +207,6 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
                                                             )
                                                         }
                                                         value={data.client_name}
-                                                        isFocused={true}
                                                         autoComplete="off"
                                                     />
                                                     {errors.client_name && (
@@ -246,7 +244,6 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
                                                             )
                                                         }
                                                         value={data.category}
-                                                        isFocused={true}
                                                         autoComplete="off"
                                                     />
                                                     {errors.category && (
@@ -270,7 +267,7 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
                                                 />
 
                                                 <div className="relative">
-                                                    <DatePicker value={selectedDate} onChange={handleDatePickerChange} name="selectedDate" className={`${errors.selectedDate
+                                                    <DatePicker autoComplete="off" value={selectedDate} onChange={handleDatePickerChange} name="selectedDate" className={`${errors.selectedDate
                                                         ? "!border-danger-500"
                                                         : ""
                                                         }`} />

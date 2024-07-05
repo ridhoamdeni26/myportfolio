@@ -186,6 +186,32 @@ body::-webkit-scrollbar-thumb {
     border-radius: 6px;
     border: 3px solid #fff;
 }
+.section_home_portfolio {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    overflow: hidden;
+    z-index: 8;
+    transition: visibility 1s linear, opacity 0s linear;
+    -moz-transition: visibility 1s linear, opacity 0s linear;
+    -webkit-transition: visibility1s linear, opacity 0s linear;
+    -o-transition: visibility 1s linear, opacity 0s linear;
+}
+.section-about-portfolio {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    overflow: hidden;
+    z-index: 8;
+    transition: visibility 1s linear, opacity 0s linear;
+    -moz-transition: visibility 1s linear, opacity 0s linear;
+    -webkit-transition: visibility1s linear, opacity 0s linear;
+    -o-transition: visibility 1s linear, opacity 0s linear;
+}
 .elisc_tm_section {
     position: absolute;
     top: 0px;

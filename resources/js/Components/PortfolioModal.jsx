@@ -25,10 +25,10 @@ export default function PortfolioModal({ showModal, closeModal, portfolio }) {
                         variants={fadeInVariants}
                         transition={{ duration: 0.5 }}
                     >
-                        <div className="modal-box w-11/12 max-w-5xl p-10">
+                        <div className="modal-box w-11/12 max-w-5xl p-10 bg-white">
                             <img
                                 className="mb-5 mx-auto rounded-xl"
-                                src={portfolio.image_description1}
+                                src={`/storage/${portfolio.image_thumbnail}`}
                                 alt=""
                             />
                             <div class="details w-full mb-3">
@@ -75,13 +75,6 @@ export default function PortfolioModal({ showModal, closeModal, portfolio }) {
                                             {portfolio.date}
                                         </p>
                                     </div>
-
-                                    <div class="mb-5 text-left">
-                                        <div class="text-[#28767A] text-lg font-bold">
-                                            website
-                                        </div>
-                                        <p class="text-md text-slate-400"></p>
-                                    </div>
                                 </div>
                             </div>
 
@@ -90,7 +83,7 @@ export default function PortfolioModal({ showModal, closeModal, portfolio }) {
                                     <div class="my_image">
                                         <img
                                             className="main rounded-lg mx-auto"
-                                            src={portfolio.image_description1}
+                                            src={`/storage/${portfolio.image_description1}`}
                                             alt=""
                                         />
                                     </div>
@@ -103,9 +96,7 @@ export default function PortfolioModal({ showModal, closeModal, portfolio }) {
                                         <div class="my_image">
                                             <img
                                                 class="main rounded-lg mx-auto"
-                                                src={
-                                                    portfolio.image_description2
-                                                }
+                                                src={`/storage/${portfolio.image_description2}`}
                                                 alt=""
                                             />
                                         </div>
@@ -113,9 +104,7 @@ export default function PortfolioModal({ showModal, closeModal, portfolio }) {
                                         <div class="my_image">
                                             <img
                                                 class="main rounded-lg mx-auto"
-                                                src={
-                                                    portfolio.image_description3
-                                                }
+                                                src={`/storage/${portfolio.image_description3}`}
                                                 alt=""
                                             />
                                         </div>

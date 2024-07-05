@@ -8,10 +8,24 @@ import AboutmeDetail from "@/Components/AboutmeDetail";
 import AboutmeExperience from "@/Components/AboutmeExperience";
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import AnimateAbout from '@/Components/AnimateAbout';
 
-export default function About({ experiences, profiles, statistics }) {
+export default function About({ experiences, profiles, statistics, typed }) {
     const [showModal, setShowModal] = useState(false);
     const [selectedExperience, setSelectedExperience] = useState(null);
+
+    const convertHtmlToPlainText = (html) => {
+        const doc = new DOMParser().parseFromString(html, "text/html");
+        return doc.body.textContent || "";
+    };
+
+    const truncateText = (text, maxLength) => {
+        return text.length > maxLength
+            ? `${text.slice(0, maxLength)}...`
+            : text;
+    };
+
+    const [showFullDescription] = useState(false);
 
     const openModal = (experience) => {
         setSelectedExperience(experience);
@@ -22,17 +36,6 @@ export default function About({ experiences, profiles, statistics }) {
         setSelectedExperience(null);
         setShowModal(false);
     };
-
-    const typed = [
-        "Fullstack Developer",
-        1000,
-        "Coder",
-        1000,
-        "Web Developer",
-        1000,
-        "Problem Solver",
-        1000,
-    ];
 
     const controls = useAnimation();
     const [ref, inView] = useInView({
@@ -61,22 +64,31 @@ export default function About({ experiences, profiles, statistics }) {
                 <Head title="About Me"></Head>
                 <div className="elisc_tm_section">
                     <div className="elisc_tm_about w-full float-left pt-[130px]">
+                        <AnimateAbout />
                         <div className="tm_content w-full max-w-[1250px] h-auto clear-both my-0 mx-auto py-0 px-[20px]">
+
                             <div className="elisc_tm_biography w-full float-left flex mb-[40px]">
-                                <AboutmeProfile typed={typed}
+                                <AboutmeProfile
+                                    typed={typed}
                                     fullname={profiles.fullname}
                                     age={profiles.age}
                                     city={profiles.city}
                                     country={profiles.country}
                                     email={profiles.email}
-                                    phone={profiles.phone} />
+                                    phone={profiles.phone}
+                                />
                                 <AboutmeDetail />
                             </div>
-                            <div className="elisc_tm_counter w-full float-left mb-[40px]">
+                            <motion.div
+                                className="elisc_tm_counter w-full float-left mb-[40px]"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5, delay: 0.2 }}
+                            >
                                 <AboutmeExperience statistics={statistics} />
-                            </div>
+                            </motion.div>
                         </div>
-                        <div className="elisc_tm_experience w-full float-left bg-[#F3F9FF] pt-[100px] pb-[70px] px-0">
+                        <div className="elisc_tm_experience w-full float-left bg-[#F3F9FF] pt-[35px] pb-[70px] px-0">
                             <motion.div
                                 className="tm_content w-full max-w-[1250px] h-auto clear-both my-0 mx-auto py-0 px-[20px]"
                                 ref={ref}
@@ -109,7 +121,7 @@ export default function About({ experiences, profiles, statistics }) {
                                             >
                                                 <img
                                                     className="popup_image"
-                                                    src={experience.image}
+                                                    src={`/storage/${experience.image}`}
                                                     alt=""
                                                 />
                                                 <div className="list_inner w-full float-left clear-both bg-white rounded-[4px] px-[70px] py-[45px] relative">
@@ -134,9 +146,16 @@ export default function About({ experiences, profiles, statistics }) {
                                                     </div>
                                                     <div className="text w-full float-left">
                                                         <p className="opacity-[0.7]">
-                                                            {
-                                                                experience.description_short
-                                                            }
+                                                            {showFullDescription
+                                                                ? convertHtmlToPlainText(
+                                                                    experience.description_short
+                                                                )
+                                                                : truncateText(
+                                                                    convertHtmlToPlainText(
+                                                                        experience.description_short
+                                                                    ),
+                                                                    250
+                                                                )}
                                                         </p>
                                                     </div>
 

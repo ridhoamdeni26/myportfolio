@@ -131,7 +131,7 @@ function ModalService({ isOpen,
                                             <div className="input-area">
                                                 <InputLabel
                                                     htmlFor="title"
-                                                    value="Year"
+                                                    value="Title"
                                                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                                 />
 

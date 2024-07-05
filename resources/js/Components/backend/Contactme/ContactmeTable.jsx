@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import DataTable, { createTheme } from "react-data-table-component";
 import Swal from "sweetalert2";
 import { Icon } from "@iconify/react";
 import { router } from "@inertiajs/react";
 import { useToasts } from "react-toast-notifications";
 
-function myTable({ columns, services, name, nowPage, perPage }) {
+function ContactmeTable({ columns, contactmes, name, perPage, nowPage }) {
     const { addToast } = useToasts();
     const [pending, setPending] = useState(true);
     const [selectedRows, setSelectedRows] = useState([]);
     const [rows, setRows] = useState([]);
     const [deleteSuccess, setDeleteSuccess] = useState(false);
+
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -28,7 +29,7 @@ function myTable({ columns, services, name, nowPage, perPage }) {
     const handleChange = (pageNumber, newPerPage) => {
         setSelectedPage(pageNumber);
         setSelectedPerPage(newPerPage);
-        const newUrl = `/services-admin?page=${pageNumber}&perPage=${newPerPage}`;
+        const newUrl = `/contactme-admin?page=${pageNumber}&perPage=${newPerPage}`;
         router.visit(newUrl, { preserveState: true });
     };
 
@@ -44,11 +45,11 @@ function myTable({ columns, services, name, nowPage, perPage }) {
     useEffect(() => {
         const fetchData = async () => {
             await new Promise((resolve) => setTimeout(resolve, 2000));
-            setRows(services);
+            setRows(contactmes);
             setPending(false);
         };
         fetchData();
-    }, [services]);
+    }, [contactmes]);
 
     const handleSearchChange = (e) => {
         const searchTerm = e.target.value.toLowerCase();
@@ -56,14 +57,16 @@ function myTable({ columns, services, name, nowPage, perPage }) {
     };
 
     const filteredData = searchTerm
-        ? services.data.filter((service) => {
-            const title = service.title.toLowerCase();
+        ? contactmes.data.filter((contactme) => {
+            const fullname = contactme.fullname.toLowerCase();
+            const email = contactme.email.toLowerCase();
 
             return (
-                title.includes(searchTerm)
+                fullname.includes(searchTerm) ||
+                email.includes(searchTerm)
             );
         })
-        : services.data;
+        : contactmes.data;
 
     const selectedRowsChange = ({ selectedRows }) => {
         setSelectedRows(selectedRows);
@@ -86,7 +89,7 @@ function myTable({ columns, services, name, nowPage, perPage }) {
             cancelButtonText: "Cancel",
         }).then((result) => {
             if (result.isConfirmed) {
-                router.delete(route("services.delete.selected"), {
+                router.delete(route("contactme.delete.selected"), {
                     data: {
                         ids: ids,
                     },
@@ -157,7 +160,6 @@ function myTable({ columns, services, name, nowPage, perPage }) {
         },
         "dark"
     );
-
     return (
         <>
             {loading ? (
@@ -230,7 +232,7 @@ function myTable({ columns, services, name, nowPage, perPage }) {
                                         progressPending={pending}
                                         pagination
                                         paginationPerPage={selectedPerPage}
-                                        paginationTotalRows={services.total}
+                                        paginationTotalRows={contactmes.total}
                                         paginationRowsPerPageOptions={[
                                             10, 15, 20, 25, 30,
                                         ]}
@@ -252,7 +254,7 @@ function myTable({ columns, services, name, nowPage, perPage }) {
                 </div>
             )}
         </>
-    );
+    )
 }
 
-export default myTable;
+export default ContactmeTable

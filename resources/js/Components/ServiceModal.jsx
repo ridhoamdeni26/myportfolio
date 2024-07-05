@@ -9,8 +9,8 @@ export default function ServiceModal({ service, showModal, closeModal }) {
                 <>
                     <div className="modal-overlay"></div>
                     <dialog id="my_modal_2" className="modal" open>
-                        <div className="modal-box">
-                            <img className="mb-5" src={service.image} alt="" />
+                        <div className="modal-box bg-white">
+                            <img className="mb-5" src={`/storage/${service.image}`} alt="" />
                             <div className="text w-full float-left">
                                 <h3 className="text-[20px]">{service.title}</h3>
                                 <p className="py-4">

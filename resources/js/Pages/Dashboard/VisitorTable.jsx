@@ -6,6 +6,15 @@ function VisitorTable({ visitors, perPage, nowPage }) {
     const [selectedPage, setSelectedPage] = useState(nowPage);
     const [selectedPerPage, setSelectedPerPage] = useState(perPage);
     const [searchTerm, setSearchTerm] = useState("");
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 2000);
+
+        return () => clearTimeout(timer);
+    }, []);
 
     const handleChange = (pageNumber, newPerPage) => {
         setSelectedPage(pageNumber);
@@ -99,64 +108,92 @@ function VisitorTable({ visitors, perPage, nowPage }) {
 
     const filteredData = searchTerm
         ? visitors.data.filter((visitor) => {
-              const ipAddress = visitor.ip_address.toLowerCase();
-              const operatingSystem = visitor.operating_system.toLowerCase();
-              const city = visitor.city.toLowerCase();
-              const region = visitor.region.toLowerCase();
+            const ipAddress = visitor.ip_address.toLowerCase();
+            const operatingSystem = visitor.operating_system.toLowerCase();
+            const city = visitor.city.toLowerCase();
+            const region = visitor.region.toLowerCase();
 
-              return (
-                  ipAddress.includes(searchTerm) ||
-                  operatingSystem.includes(searchTerm) ||
-                  city.includes(searchTerm) ||
-                  region.includes(searchTerm)
-              );
-          })
+            return (
+                ipAddress.includes(searchTerm) ||
+                operatingSystem.includes(searchTerm) ||
+                city.includes(searchTerm) ||
+                region.includes(searchTerm)
+            );
+        })
         : visitors.data;
 
     return (
-        <div className="card">
-            <header className="card-header noborder">
-                <h4 className="card-title">Visitor Table</h4>
-            </header>
-
-            <div className="card-body px-6 pb-6">
-                <div className="overflow-x-auto -mx-6 dashcode-data-table">
-                    <div className="flex justify-end items-center mb-6 px-4">
-                        <div className="flex items-center">
-                            <div className="text-white ml-4">Search</div>
-                            <input
-                                type="text"
-                                value={searchTerm}
-                                onChange={handleSearchChange}
-                                placeholder="Search..."
-                                className="border p-1"
-                            />
-                        </div>
-                    </div>
-                    <div className="inline-block min-w-full align-middle">
-                        <div className="overflow-hidden">
-                            <DataTable
-                                columns={columns}
-                                data={filteredData}
-                                pagination
-                                paginationPerPage={selectedPerPage}
-                                paginationTotalRows={visitors.total}
-                                paginationRowsPerPageOptions={[
-                                    10, 15, 20, 25, 30,
-                                ]}
-                                paginationServer
-                                paginationDefaultPage={selectedPage}
-                                onChangePage={handlePageChange}
-                                onChangeRowsPerPage={handlePerPageChange}
-                                currentPage={selectedPage}
-                                customStyles={customStyles}
-                                theme="solarized"
-                            />
+        <>
+            {loading ? (
+                <div class="skeleton card overflow-hidden">
+                    <div class="skeleton rounded-none card-body px-8 pb-8 w-100">
+                        <div class="skeleton overflow-x-auto -mx-8 dashcode-data-table">
+                            <div class="flex justify-between items-center mb-8 px-6">
+                                <div class="skeleton flex-grow-0">
+                                    <div class="skeleton h-8 w-24 rounded-md bg-gray-300"></div>
+                                </div>
+                                <div class="skeleton flex items-center">
+                                    <div class="skeleton h-8 w-24 rounded-md bg-gray-300"></div>
+                                </div>
+                            </div>
+                            <div class="inline-block min-w-full align-middle">
+                                <table class="skeleton w-full">
+                                    <tr>
+                                        <td class="skeleton py-4"> </td>
+                                        <td class="skeleton py-4"> </td>
+                                        <td class="skeleton py-4"> </td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            ) : (
+                <div className="card">
+                    <header className="card-header noborder">
+                        <h4 className="card-title">Visitor Table</h4>
+                    </header>
+
+                    <div className="card-body px-6 pb-6">
+                        <div className="overflow-x-auto -mx-6 dashcode-data-table">
+                            <div className="flex justify-end items-center mb-6 px-4">
+                                <div className="flex items-center">
+                                    <div className="text-white ml-4">Search</div>
+                                    <input
+                                        type="text"
+                                        value={searchTerm}
+                                        onChange={handleSearchChange}
+                                        placeholder="Search..."
+                                        className="border p-1"
+                                    />
+                                </div>
+                            </div>
+                            <div className="inline-block min-w-full align-middle">
+                                <div className="overflow-hidden">
+                                    <DataTable
+                                        columns={columns}
+                                        data={filteredData}
+                                        pagination
+                                        paginationPerPage={selectedPerPage}
+                                        paginationTotalRows={visitors.total}
+                                        paginationRowsPerPageOptions={[
+                                            10, 15, 20, 25, 30,
+                                        ]}
+                                        paginationServer
+                                        paginationDefaultPage={selectedPage}
+                                        onChangePage={handlePageChange}
+                                        onChangeRowsPerPage={handlePerPageChange}
+                                        currentPage={selectedPage}
+                                        customStyles={customStyles}
+                                        theme="solarized"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </>
     );
 }
 

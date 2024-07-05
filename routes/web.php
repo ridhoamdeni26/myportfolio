@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\AboutmeController;
+use App\Http\Controllers\Backend\ContactmeController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\HomepageController;
 use App\Http\Controllers\Backend\PortfolioController as BackendPortfolioController;
@@ -60,11 +61,19 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::post('/services-create',  [ServicesController::class, 'create'])->name('services.create');
     Route::post('/services-update/{id}',  [ServicesController::class, 'update'])->name('services.update');
     Route::delete('/services-delete/{id}',  [ServicesController::class, 'delete'])->name('services.delete');
-    Route::delete('/aboutme-delete-selected',  [ServicesController::class, 'deleteSelected'])->name('services.delete.selected');
+    Route::delete('/services-delete-selected',  [ServicesController::class, 'deleteSelected'])->name('services.delete.selected');
 
     // Portfolio
     Route::get('/portfolio-admin', [BackendPortfolioController::class, 'index'])->name('portfolio.admin');
     Route::post('/portfolio-create',  [BackendPortfolioController::class, 'create'])->name('portfolio.create');
+    Route::post('/portfolio-update/{id}',  [BackendPortfolioController::class, 'update'])->name('portfolio.update');
+    Route::delete('/portfolio-delete/{id}',  [BackendPortfolioController::class, 'delete'])->name('portfolio.delete');
+    Route::delete('/portfolio-delete-selected',  [BackendPortfolioController::class, 'deleteSelected'])->name('portfolio.delete.selected');
+
+    // Contact Me
+    Route::get('/contactme-admin', [ContactmeController::class, 'index'])->name('contactme.admin');
+    Route::delete('/contactme-delete/{id}',  [ContactmeController::class, 'delete'])->name('contactme.delete');
+    Route::delete('/contactme-delete-selected',  [ContactmeController::class, 'deleteSelected'])->name('contactme.delete.selected');
 });
 
 Route::get('/dashboard-test', function () {

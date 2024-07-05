@@ -3,9 +3,9 @@ import AuthLayout from "@/Layouts/Admin/AuthLayout";
 import { Head, usePage } from "@inertiajs/react";
 import { Icon } from "@iconify/react";
 import PortfolioTable from "@/Components/backend/portfolio/PortfolioTable";
-import ModalAboutMe from "@/Components/backend/aboutme/ModalAboutMe";
+import ViewEditForm from "@/Components/backend/portfolio/ViewEditForm";
 import CreateForm from "@/Components/backend/portfolio/CreateForm";
-import DeleteForm from "@/Components/backend/aboutme/DeleteForm";
+import DeleteForm from "@/Components/backend/portfolio/DeleteForm";
 import Swal from "sweetalert2";
 
 function Index({ auth, breadcrumb, currentPage, portfolio, perPage, nowPage }) {
@@ -24,6 +24,22 @@ function Index({ auth, breadcrumb, currentPage, portfolio, perPage, nowPage }) {
         const formattedMonth = month < 10 ? "0" + month : month;
 
         return `${formattedDay}/${formattedMonth}/${year}`;
+    };
+
+    const handleDelete = (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You will not be able to recover this data!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonColor: "#d33",
+            cancelButtonText: "Cancel",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire("Deleted!", "Your data has been deleted.", "success");
+            }
+        });
     };
 
     const columns = [
@@ -56,29 +72,30 @@ function Index({ auth, breadcrumb, currentPage, portfolio, perPage, nowPage }) {
                         type="button"
                         onClick={() => handleView(row.id)}
                     >
-                        <iconify-icon icon="heroicons:eye"></iconify-icon>
+                        <Icon icon="heroicons:eye"></Icon>
                     </button>
                     <button
                         className="action-btn"
                         type="button"
                         onClick={() => handleEdit(row.id)}
                     >
-                        <iconify-icon icon="heroicons:pencil-square"></iconify-icon>
+                        <Icon icon="heroicons:pencil-square"></Icon>
                     </button>
+                    <DeleteForm id={row.id} onDelete={handleDelete} />
                 </div>
             ),
         },
     ];
 
     const handleView = (id) => {
-        const selectedRow = service.data.find((row) => row.id === id);
+        const selectedRow = portfolio.data.find((row) => row.id === id);
         setSelectedData(selectedRow);
         setActionType("view");
         setModalOpen(true);
     };
 
     const handleEdit = (id) => {
-        const selectedRow = service.data.find((row) => row.id === id);
+        const selectedRow = portfolio.data.find((row) => row.id === id);
         setSelectedData(selectedRow);
         setActionType("edit");
         setModalOpen(true);
@@ -115,7 +132,7 @@ function Index({ auth, breadcrumb, currentPage, portfolio, perPage, nowPage }) {
                             className="text-xl mr-1"
                             icon="ph:plus-bold"
                         ></Icon>
-                        <span>Add Project</span>
+                        <span>Add Portfolio</span>
                     </span>
                 </button>
             </div>
@@ -126,6 +143,14 @@ function Index({ auth, breadcrumb, currentPage, portfolio, perPage, nowPage }) {
                 name="portfolio"
                 nowPage={nowPage}
                 perPage={perPage}
+            />
+
+            <ViewEditForm
+                isOpen={isModalOpen}
+                closeModal={closeModal}
+                actionType={actionType}
+                selectedData={selectedData}
+                nameModal="Service"
             />
 
             <CreateForm

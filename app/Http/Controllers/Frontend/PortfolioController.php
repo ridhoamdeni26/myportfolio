@@ -7,6 +7,7 @@ use App\Models\Contactme;
 use App\Models\Experiences;
 use App\Models\Myprofiles;
 use App\Models\PortfolioProject;
+use App\Models\Profile;
 use App\Models\Services;
 use App\Models\Visitor;
 use Illuminate\Http\Request;
@@ -22,7 +23,16 @@ class PortfolioController extends Controller
         $agent = new Agent();
         $location = Location::get();
 
-        $createVisitor = Visitor::create([
+        $profiles = Profile::first();
+
+        $typedString = $profiles['typed'];
+        $typedArray = json_decode($typedString);
+
+        for ($i = 1; $i < count($typedArray); $i += 2) {
+            $typedArray[$i] = (int)$typedArray[$i];
+        }
+
+        Visitor::create([
             'ip_address' => $request->getClientIp(),
             'operating_system' => $agent->platform(),
             'visit_time' => now(),
@@ -40,7 +50,10 @@ class PortfolioController extends Controller
             'timezone' => $location->timezone,
         ]);
 
-        return Inertia::render('User/Index');
+        return Inertia::render('User/Index', [
+            'profiles' => $profiles,
+            'typed' => $typedArray,
+        ]);
     }
 
     public function about(Request $request)
@@ -51,8 +64,14 @@ class PortfolioController extends Controller
         $exp = Experiences::orderBy('id')
             ->get();
 
-        $profiles = Myprofiles::orderBy('id')
-            ->first();
+        $profiles = Profile::first();
+
+        $typedString = $profiles['typed'];
+        $typedArray = json_decode($typedString);
+
+        for ($i = 1; $i < count($typedArray); $i += 2) {
+            $typedArray[$i] = (int)$typedArray[$i];
+        }
 
         $statistics = [
             ['number' => 4, 'label' => 'Years of Experience', 'color' => '#D3F4EC'],
@@ -60,7 +79,7 @@ class PortfolioController extends Controller
             ['number' => 10, 'label' => 'Happy Clients', 'color' => '#E3F9E0'],
         ];
 
-        $createVisitor = Visitor::create([
+        Visitor::create([
             'ip_address' => $request->getClientIp(),
             'operating_system' => $agent->platform(),
             'visit_time' => now(),
@@ -81,7 +100,8 @@ class PortfolioController extends Controller
         return Inertia::render('User/About', [
             'experiences' => $exp,
             'profiles' => $profiles,
-            'statistics' => $statistics
+            'statistics' => $statistics,
+            'typed' => $typedArray
         ]);
     }
 
@@ -93,7 +113,10 @@ class PortfolioController extends Controller
         $services = Services::orderBy('id')
             ->get();
 
-        $createVisitor = Visitor::create([
+        $profiles = Profile::first();
+        $email = $profiles['email'];
+
+        Visitor::create([
             'ip_address' => $request->getClientIp(),
             'operating_system' => $agent->platform(),
             'visit_time' => now(),
@@ -112,7 +135,8 @@ class PortfolioController extends Controller
         ]);
 
         return Inertia::render('User/Service', [
-            'services' => $services
+            'services' => $services,
+            'email' => $email
         ]);
     }
 
@@ -124,7 +148,7 @@ class PortfolioController extends Controller
         $portfolio = PortfolioProject::orderBy('id')
             ->get();
 
-        $createVisitor = Visitor::create([
+        Visitor::create([
             'ip_address' => $request->getClientIp(),
             'operating_system' => $agent->platform(),
             'visit_time' => now(),
@@ -158,7 +182,7 @@ class PortfolioController extends Controller
             'profiles' => $profiles,
         ]);
 
-        $createVisitor = Visitor::create([
+        Visitor::create([
             'ip_address' => $request->getClientIp(),
             'operating_system' => $agent->platform(),
             'visit_time' => now(),

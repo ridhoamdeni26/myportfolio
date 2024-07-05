@@ -12,7 +12,7 @@ class Profile extends Model
     protected $table = 'profiles';
 
     protected $fillable = [
-        'name', 'country', 'phone', 'email', 'address', 'typed', 'image_icon', 'image_homepage'
+        'name', 'country', 'phone', 'email', 'address', 'typed', 'image_icon', 'image_homepage', 'age', 'city'
     ];
 
     protected $casts = [

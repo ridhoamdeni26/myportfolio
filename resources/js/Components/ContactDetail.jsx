@@ -29,17 +29,17 @@ export default function ContactDetail({ profiles }) {
             <div className="info w-full float-left">
                 <ul>
                     <li className="mb-[2px] w-full float-left">
-                        <div className="text-[#A5A6FF] font-semibold font-inter inline-block relative">
+                        <div className="text-[#130F49] font-semibold font-inter inline-block relative">
                             {profiles.phone}
                         </div>
                     </li>
                     <li className="mb-[2px] w-full float-left">
-                        <div className="text-[#A5A6FF] font-semibold font-inter inline-block relative">
+                        <div className="text-[#130F49] font-semibold font-inter inline-block relative">
                             {profiles.email}
                         </div>
                     </li>
                     <li className="w-full float-left">
-                        <div className="text-[#A5A6FF] font-semibold font-inter inline-block relative">
+                        <div className="text-[#130F49] font-semibold font-inter inline-block relative">
                             {profiles.city}, {profiles.country}
                         </div>
                     </li>

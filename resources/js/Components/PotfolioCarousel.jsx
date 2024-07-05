@@ -58,7 +58,7 @@ export default function PotfolioCarousel({ portfolio }) {
                         >
                             <div className="carousel-item relative rounded-[4px] overflow-hidden mb-[25px]">
                                 <motion.img
-                                    src={portfolio.image_thumbnail}
+                                    src={`/storage/${portfolio.image_thumbnail}`}
                                     className="rounded-box"
                                     alt=""
                                     whileHover="hover"

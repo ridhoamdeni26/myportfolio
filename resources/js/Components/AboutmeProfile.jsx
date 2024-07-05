@@ -74,9 +74,6 @@ export default function AboutmeProfile({ typed, fullname, age, city, country, em
                     </li>
                 </ul>
             </div>
-            <div className="elisc_tm_button transition_link">
-                <Link href="">Got a project?</Link>
-            </div>
         </motion.div>
     )
 }

@@ -41,6 +41,8 @@ class HomepageController extends Controller
             'country' => $request->country,
             'phone' => $request->phone,
             'email' => $request->email,
+            'age' => $request->age,
+            'city' => $request->city,
             'address' => $request->address,
             'typed' => $request->typed,
         ];

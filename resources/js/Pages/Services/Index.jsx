@@ -129,7 +129,7 @@ function index({ auth, breadcrumb, currentPage, service, nowPage, perPage }) {
             <TableService
                 services={service}
                 columns={columns}
-                name="Serives"
+                name="Service"
                 nowPage={nowPage}
                 perPage={perPage}
             />

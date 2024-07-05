@@ -11,13 +11,8 @@ export default function Sidebar({ currentPage }) {
             <div className="dark">
                 <div className="logo-segment">
                     <a className="flex items-center" href="#">
-                        <img
-                            src="assetsadmin/images/logo/logo-c-white.svg"
-                            className="white_logo"
-                            alt="logo"
-                        />
                         <span className="ml-3 text-xl font-Inter font-bold text-white">
-                            DashCode
+                            Welcome Admin
                         </span>
                     </a>
                     <div
@@ -46,10 +41,10 @@ export default function Sidebar({ currentPage }) {
                 className="nav_shadow h-[60px] absolute top-[80px] nav-shadow z-[1] w-full transition-all duration-200 pointer-events-none opacity-0"
             ></div>
             <div
-                className="sidebar-menus bg-slate-800 py-2 px-4 h-[calc(100%-80px)] overflow-y-auto z-50"
+                className="sidebar-menus bg-slate-800 py-2 px-4 h-[calc(100%-80px)] z-50"
                 id="sidebar_menus"
             >
-                <div className="dark">
+                <div className="dark relative z-[99]">
                     <ul className="sidebar-menu">
                         <li className="sidebar-menu-title">MENU</li>
                         <li>
@@ -132,6 +127,23 @@ export default function Sidebar({ currentPage }) {
                                         icon="heroicons:book-open"
                                     />
                                     <span>Portfolio</span>
+                                </span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                href="/contactme-admin"
+                                className={`mb-2 navItem ${currentPage === "contactme-admin"
+                                    ? "active"
+                                    : ""
+                                    }`}
+                            >
+                                <span className="flex items-center">
+                                    <Icon
+                                        className="nav-icon mr-3"
+                                        icon="heroicons:envelope"
+                                    />
+                                    <span>Contact Me</span>
                                 </span>
                             </Link>
                         </li>

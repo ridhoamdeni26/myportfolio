@@ -23,20 +23,8 @@ function Header({ user }) {
                     <div
                         className="flex items-center md:space-x-4 space-x-2 xl:space-x-0 vertical-box"
                     >
-                        <a
-                            href="#"
-                            className="mobile-logo xl:hidden inline-block"
-                        >
-                            <img
-                                src="assetsadmin/images/logo/logo-c-white.svg"
-                                className="white_logo"
-                                alt="logo"
-                            />
-                        </a>
-                        <button
-                            className="smallDeviceMenuController hidden md:inline-block xl:hidden"
-                        >
-                            <Icon className="leading-none bg-transparent relative text-xl top-[2px] text-white" icon="heroicons-outline:menu-alt-3" />
+                        <button className="smallDeviceMenuController hidden md:inline-block xl:hidden">
+                            <Icon className="leading-none bg-transparent relative text-xl top-[2px] text-white" icon="heroicons-outline:menu-alt-3"></Icon>
                         </button>
 
                         <button className="flex items-center xl:text-sm text-lg xl:text-slate-400 text-slate-300 px-1 search-modal" onClick={openSearchModal}>
@@ -45,27 +33,10 @@ function Header({ user }) {
                         </button>
 
                         <SearchModal showModal={isSearchModalOpen} closeModal={closeSearchModal} />
-
                     </div>
                     <div
                         className="items-center space-x-4 horizental-box"
                     >
-                        <a href="#">
-                            <span className="xl:inline-block hidden">
-                                <img
-                                    src="assetsadmin/images/logo/logo-white.svg"
-                                    className="white_logo"
-                                    alt="logo"
-                                />
-                            </span>
-                            <span className="xl:hidden inline-block">
-                                <img
-                                    src="assetsadmin/images/logo/logo-c-white.svg"
-                                    className="white_logo"
-                                    alt="logo"
-                                />
-                            </span>
-                        </a>
                         <button
                             className="smallDeviceMenuController open-sdiebar-controller xl:hidden inline-block"
                         >
