@@ -5,6 +5,7 @@ import ContactForm from "@/Components/ContactForm";
 import AnimateContact from "@/Components/AnimateContact";
 
 export default function Contact({ profiles }) {
+    console.log(profiles);
     return (
         <>
             <Authenticated>

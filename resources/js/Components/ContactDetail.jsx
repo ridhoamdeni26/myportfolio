@@ -1,17 +1,16 @@
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 export default function ContactDetail({ profiles }) {
     const slideInVariants = {
-        hidden: { x: '-100%' },
+        hidden: { x: "-100%" },
         visible: { x: 0 },
     };
     return (
-
         <motion.div
             className="left w-1/2 pr-[50px]"
             initial="hidden"
             animate="visible"
             variants={slideInVariants}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
         >
             <div className="elisc_tm_title w-full float-left">
                 <span className="w-full float-left font-medium uppercase inline-block mb-[12px]">

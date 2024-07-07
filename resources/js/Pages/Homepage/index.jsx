@@ -102,7 +102,10 @@ function index({ auth, breadcrumb, currentPage }) {
                         </header>
                         <div className="skeleton card-text h-full space-y-4">
                             {Array.from({ length: 6 }).map((_, index) => (
-                                <div key={index} className="skeleton input-area relative pl-28">
+                                <div
+                                    key={index}
+                                    className="skeleton input-area relative pl-28"
+                                >
                                     <div className="skeleton mb-2 absolute left-0 top-1/2 -translate-y-1/2 block cursor-pointer font-Inter font-medium capitalize text-slate-700 dark:text-slate-50 leading-6">
                                         <div className="animate-pulse bg-gray-300 h-4 w-20 rounded-md"></div>
                                     </div>
@@ -353,7 +356,8 @@ function index({ auth, breadcrumb, currentPage }) {
                                                     id="placeholder"
                                                     className="text-slate-400"
                                                 >
-                                                    Choose a file or drop it here...
+                                                    Choose a file or drop it
+                                                    here...
                                                 </span>
                                             </span>
                                             <span className="file-name flex-none cursor-pointer border-l px-4 border-slate-200 dark:border-slate-700 h-full inline-flex items-center bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-sm rounded-tr rounded-br font-normal">
@@ -406,7 +410,8 @@ function index({ auth, breadcrumb, currentPage }) {
                                                     id="placeholder"
                                                     className="text-slate-400"
                                                 >
-                                                    Choose a file or drop it here...
+                                                    Choose a file or drop it
+                                                    here...
                                                 </span>
                                             </span>
                                             <span className="file-name flex-none cursor-pointer border-l px-4 border-slate-200 dark:border-slate-700 h-full inline-flex items-center bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-sm rounded-tr rounded-br font-normal">
