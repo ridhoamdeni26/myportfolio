@@ -34,7 +34,7 @@ export default function DropdownHeader({ username }) {
                 <div className="absolute z-10 divide-y divide-slate-100 shadow w-44 bg-slate-800 border border-slate-700 rounded-md !top-[35px] overflow-hidden">
                     <ul className="py-1 text-sm text-slate-200">
                         <li>
-                            <a
+                            <Link
                                 href="/dashboard"
                                 className="px-4 py-2 flex justify-items-start hover:bg-slate-600 hover:text-white font-inter text-sm text-white font-normal"
                             >
@@ -43,7 +43,7 @@ export default function DropdownHeader({ username }) {
                                     className="relative top-[2px] text-lg mr-1"
                                 />
                                 <span className="font-Inter">Dashboard</span>
-                            </a>
+                            </Link>
                         </li>
                         <li>
                             <Link
