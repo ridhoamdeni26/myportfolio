@@ -24,7 +24,7 @@ class HomepageController extends Controller
 
         $profiles = Profile::first();
 
-        return Inertia::render('Homepage/Index', [
+        return Inertia::render('Homepage/index', [
             'breadcrumb' => $breadcrumb,
             'currentPage' => $currentPage,
             'profiles' => $profiles
