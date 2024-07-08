@@ -56,14 +56,14 @@ function MyTable({ columns, exps, name, perPage, nowPage }) {
     };
 
     const filteredData = searchTerm
-        ? exps.data.filter((exp) => {
-            const year = exp.ip_address.toLowerCase();
-            const job = exp.operating_system.toLowerCase();
-            const place = exp.place.toLowerCase();
+        ? exps.data.filter((about) => {
+            const company_name = about.company_name.toLowerCase();
+            const year = about.year.toLowerCase();
+            const place = about.place.toLowerCase();
 
             return (
+                company_name.includes(searchTerm) ||
                 year.includes(searchTerm) ||
-                job.includes(searchTerm) ||
                 place.includes(searchTerm)
             );
         })

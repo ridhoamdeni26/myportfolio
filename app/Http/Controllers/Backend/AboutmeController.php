@@ -28,8 +28,8 @@ class AboutmeController extends Controller
         if ($request->has('search')) {
             $searchTerm = $request->input('search');
             $query->where(function ($q) use ($searchTerm) {
-                $q->where('year', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('job', 'like', '%' . $searchTerm . '%')
+                $q->where('company_name', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('year', 'like', '%' . $searchTerm . '%')
                     ->orWhere('place', 'like', '%' . $searchTerm . '%');
             });
         }
@@ -50,6 +50,7 @@ class AboutmeController extends Controller
         $request->validated();
 
         $data = [
+            'company_name' => $request->company_name,
             'year' => $request->year,
             'job' => $request->job,
             'place' => $request->place,
@@ -82,6 +83,7 @@ class AboutmeController extends Controller
         }
 
         $data = [
+            'company_name' => $request->company_name,
             'year' => $request->year,
             'job' => $request->job,
             'place' => $request->place,

@@ -131,6 +131,42 @@ function ModalAboutMe({
                                         <div className="card-text h-full space-y-4">
                                             <div className="input-area">
                                                 <InputLabel
+                                                    htmlFor="company_name"
+                                                    value="Company Name"
+                                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                />
+
+                                                <div className="relative">
+                                                    <TextInput
+                                                        id="company_name"
+                                                        type="text"
+                                                        name="company_name"
+                                                        className={`form-control !pr-9 ${errors.company_name
+                                                            ? "!border-danger-500"
+                                                            : ""
+                                                            }`}
+                                                        value={data.company_name}
+                                                        onChange={
+                                                            handleInputChange
+                                                        }
+                                                        disabled={isViewAction}
+                                                        autoComplete="off"
+                                                    />
+                                                    {errors.company_name && (
+                                                        <Icon
+                                                            className={`absolute top-1/2 right-3 -translate-y-1/2 text-danger-500 text-xl`}
+                                                            icon="mdi:warning-octagon-outline"
+                                                        ></Icon>
+                                                    )}
+                                                </div>
+
+                                                <InputErrorBackend
+                                                    message={errors.company_name}
+                                                />
+                                            </div>
+
+                                            <div className="input-area">
+                                                <InputLabel
                                                     htmlFor="year"
                                                     value="Year"
                                                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -142,8 +178,8 @@ function ModalAboutMe({
                                                         type="text"
                                                         name="year"
                                                         className={`form-control !pr-9 ${errors.year
-                                                                ? "!border-danger-500"
-                                                                : ""
+                                                            ? "!border-danger-500"
+                                                            : ""
                                                             }`}
                                                         value={data.year}
                                                         onChange={
@@ -178,8 +214,8 @@ function ModalAboutMe({
                                                         type="text"
                                                         name="job"
                                                         className={`form-control !pr-9 ${errors.job
-                                                                ? "!border-danger-500"
-                                                                : ""
+                                                            ? "!border-danger-500"
+                                                            : ""
                                                             }`}
                                                         value={data.job}
                                                         onChange={
@@ -215,8 +251,8 @@ function ModalAboutMe({
                                                         type="text"
                                                         name="place"
                                                         className={`form-control !pr-9 ${errors.place
-                                                                ? "!border-danger-500"
-                                                                : ""
+                                                            ? "!border-danger-500"
+                                                            : ""
                                                             }`}
                                                         value={data.place}
                                                         onChange={
@@ -251,8 +287,8 @@ function ModalAboutMe({
                                                         id="description_short"
                                                         name="description_short"
                                                         className={`${errors.description_short
-                                                                ? "!border-danger-500"
-                                                                : ""
+                                                            ? "!border-danger-500"
+                                                            : ""
                                                             }`}
                                                         value={
                                                             data.description_short
@@ -290,8 +326,8 @@ function ModalAboutMe({
                                                         id="description_long"
                                                         name="description_long"
                                                         className={`${errors.description_long
-                                                                ? "!border-danger-500"
-                                                                : ""
+                                                            ? "!border-danger-500"
+                                                            : ""
                                                             }`}
                                                         value={
                                                             data.description_long

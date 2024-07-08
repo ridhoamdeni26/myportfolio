@@ -13,6 +13,7 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
     const [selectedImage, setSelectedImage] = useState(null);
 
     const { data, setData, errors, post, reset, processing } = useForm({
+        company_name: "",
         year: "",
         job: "",
         place: "",
@@ -24,6 +25,7 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
     useEffect(() => {
         return () => {
             reset(
+                "company_name",
                 "year",
                 "job",
                 "place",
@@ -117,7 +119,45 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
                                         <div className="card-text h-full space-y-4">
                                             <div className="input-area">
                                                 <InputLabel
-                                                    htmlFor="year"
+                                                    htmlFor="company_name"
+                                                    value="Company Name"
+                                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                />
+
+                                                <div className="relative">
+                                                    <TextInput
+                                                        type="text"
+                                                        name="company_name"
+                                                        className={`form-control !pr-9 ${errors.company_name
+                                                            ? "!border-danger-500"
+                                                            : ""
+                                                            }`}
+                                                        onChange={(e) =>
+                                                            setData(
+                                                                "company_name",
+                                                                e.target.value
+                                                            )
+                                                        }
+                                                        value={data.company_name}
+                                                        isFocused={true}
+                                                        autoComplete="off"
+                                                    />
+                                                    {errors.company_name && (
+                                                        <Icon
+                                                            className={`absolute top-1/2 right-3 -translate-y-1/2 text-danger-500 text-xl`}
+                                                            icon="mdi:warning-octagon-outline"
+                                                        ></Icon>
+                                                    )}
+                                                </div>
+
+                                                <InputErrorBackend
+                                                    message={errors.company_name}
+                                                />
+                                            </div>
+
+                                            <div className="input-area">
+                                                <InputLabel
+                                                    htmlFor="company_name"
                                                     value="Year"
                                                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                                 />
@@ -126,11 +166,10 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
                                                     <TextInput
                                                         type="text"
                                                         name="year"
-                                                        className={`form-control !pr-9 ${
-                                                            errors.year
-                                                                ? "!border-danger-500"
-                                                                : ""
-                                                        }`}
+                                                        className={`form-control !pr-9 ${errors.year
+                                                            ? "!border-danger-500"
+                                                            : ""
+                                                            }`}
                                                         onChange={(e) =>
                                                             setData(
                                                                 "year",
@@ -165,11 +204,10 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
                                                     <TextInput
                                                         type="text"
                                                         name="job"
-                                                        className={`form-control !pr-9 ${
-                                                            errors.job
-                                                                ? "!border-danger-500"
-                                                                : ""
-                                                        }`}
+                                                        className={`form-control !pr-9 ${errors.job
+                                                            ? "!border-danger-500"
+                                                            : ""
+                                                            }`}
                                                         onChange={(e) =>
                                                             setData(
                                                                 "job",
@@ -204,11 +242,10 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
                                                     <TextInput
                                                         type="text"
                                                         name="place"
-                                                        className={`form-control !pr-9 ${
-                                                            errors.place
-                                                                ? "!border-danger-500"
-                                                                : ""
-                                                        }`}
+                                                        className={`form-control !pr-9 ${errors.place
+                                                            ? "!border-danger-500"
+                                                            : ""
+                                                            }`}
                                                         onChange={(e) =>
                                                             setData(
                                                                 "place",
@@ -242,11 +279,10 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
                                                 <div className="relative">
                                                     <TextAreaInput
                                                         name="description_short"
-                                                        className={`${
-                                                            errors.description_short
-                                                                ? "!border-danger-500"
-                                                                : ""
-                                                        }`}
+                                                        className={`${errors.description_short
+                                                            ? "!border-danger-500"
+                                                            : ""
+                                                            }`}
                                                         value={
                                                             data.description_short
                                                         }
@@ -285,11 +321,10 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
                                                 <div className="relative">
                                                     <TextAreaInput
                                                         name="description_long"
-                                                        className={`${
-                                                            errors.description_long
-                                                                ? "!border-danger-500"
-                                                                : ""
-                                                        }`}
+                                                        className={`${errors.description_long
+                                                            ? "!border-danger-500"
+                                                            : ""
+                                                            }`}
                                                         value={
                                                             data.description_long
                                                         }

@@ -10,6 +10,6 @@ class Experiences extends Model
     use HasFactory;
 
     protected $fillable = [
-        'year', 'job', 'place', 'description_short', 'image', 'description_long'
+        'company_name', 'year', 'job', 'place', 'description_short', 'image', 'description_long'
     ];
 }

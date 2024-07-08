@@ -16,13 +16,13 @@ function Index({ auth, breadcrumb, currentPage, exp, perPage, nowPage }) {
 
     const columns = [
         {
-            name: "Year",
-            selector: (row) => row.year,
+            name: "Company Name",
+            selector: (row) => row.company_name,
             sortable: false,
         },
         {
-            name: "Name Job",
-            selector: (row) => row.job,
+            name: "Year",
+            selector: (row) => row.year,
             sortable: true,
         },
         {

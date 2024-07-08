@@ -127,6 +127,11 @@ export default function About({ experiences, profiles, statistics, typed }) {
                                                 <div className="list_inner w-full float-left clear-both bg-white rounded-[4px] px-[70px] py-[45px] relative">
                                                     <div className="short w-full float-left flex justify-between mb-[16px]">
                                                         <div className="job">
+                                                            <div className="company-name text-[#A5A6FF] font-bold text-[18px] mb-[4px]">
+                                                                {
+                                                                    experience.company_name
+                                                                }
+                                                            </div>
                                                             <span className="text-yellow-color font-medium inline-block mb-[4px]">
                                                                 {
                                                                     experience.year
