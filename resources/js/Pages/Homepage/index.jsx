@@ -7,7 +7,7 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import { useState, useEffect } from "react";
 import { useToasts } from "react-toast-notifications";
 
-function index({ auth, breadcrumb, currentPage }) {
+function Index({ auth, breadcrumb, currentPage }) {
     const { profiles } = usePage().props;
     const { addToast } = useToasts();
     const [loading, setLoading] = useState(true);
@@ -455,4 +455,4 @@ function index({ auth, breadcrumb, currentPage }) {
     );
 }
 
-export default index;
+export default Index;
