@@ -34,7 +34,7 @@ export default function ExperienceModal({ showModal, closeModal, experience }) {
                                 ✕
                             </button>
                             <img
-                                className="mb-5"
+                                className="m-auto"
                                 src={`/storage/${experience.image}`}
                                 alt=""
                             />
