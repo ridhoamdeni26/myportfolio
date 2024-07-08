@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Icon } from '@iconify/react';
+import { Link } from "@inertiajs/react";
 
 export default function DropdownHeader({ username }) {
     const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -34,15 +35,29 @@ export default function DropdownHeader({ username }) {
                     <ul className="py-1 text-sm text-slate-200">
                         <li>
                             <a
-                                href="index.html"
+                                href="/dashboard"
                                 className="px-4 py-2 flex justify-items-start hover:bg-slate-600 hover:text-white font-inter text-sm text-white font-normal"
                             >
                                 <Icon
                                     icon="heroicons-outline:user"
-                                    class="relative top-[2px] text-lg mr-1"
+                                    className="relative top-[2px] text-lg mr-1"
                                 />
-                                <span class="font-Inter">Dashboard</span>
+                                <span className="font-Inter">Dashboard</span>
                             </a>
+                        </li>
+                        <li>
+                            <Link
+                                href="/logout"
+                                method="post"
+                                type="button"
+                                className="px-4 py-2 flex justify-items-start hover:bg-slate-600 hover:text-white font-inter text-sm text-white font-normal"
+                            >
+                                <Icon
+                                    icon="heroicons-outline:logout"
+                                    className="relative top-[2px] text-lg mr-1"
+                                />
+                                <span className="font-Inter">logout</span>
+                            </Link>
                         </li>
                         {/* Add other list items as needed */}
                     </ul>
