@@ -5,7 +5,7 @@ use App\Http\Controllers\Backend\ContactmeController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\HomepageController;
 use App\Http\Controllers\Backend\PortfolioController as BackendPortfolioController;
-use App\Http\Controllers\backend\ServicesController;
+use App\Http\Controllers\Backend\ServicesController;
 use App\Http\Controllers\Frontend\PortfolioController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
