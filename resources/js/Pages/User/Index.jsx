@@ -14,6 +14,7 @@ export default function Index({ profiles, typed }) {
                     email={profiles.email}
                     address={profiles.address}
                     typed={typed}
+                    image_homepage={profiles.image_homepage}
                 />
             </Authenticated>
         </>

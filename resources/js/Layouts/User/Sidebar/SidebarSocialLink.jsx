@@ -1,9 +1,9 @@
 export default function SidebarSocialLink() {
     const socialLinks = [
-        { iconClass: "icon-facebook-1", href: "https://www.facebook.com/yourpage" },
-        { iconClass: "icon-twitter-1", href: "https://www.twitter.com/yourpage" },
-        { iconClass: "icon-linkedin-1", href: "https://www.linkedin.com/in/yourprofile" },
-        { iconClass: "icon-github-1", href: "https://www.linkedin.com/in/yourprofile" }
+        { iconClass: "icon-facebook-1", href: "https://www.facebook.com/ridho.amdeni" },
+        { iconClass: "icon-twitter-1", href: "https://x.com/_auahhgelapp?s=21&t=OVfTOp275bfUzQv58A1Ygg" },
+        { iconClass: "icon-linkedin-1", href: "https://www.linkedin.com/in/ridho-amdeni-72951a14b/" },
+        { iconClass: "icon-github-1", href: "https://github.com/ridhoamdeni26" }
     ];
 
     const SocialLink = ({ href, iconClass }) => {

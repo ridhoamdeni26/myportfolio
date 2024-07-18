@@ -1,4 +1,5 @@
 import Sidebar from "@/Layouts/User/Sidebar/Sidebar";
+import MobileMenu from "./MobileMenu";
 
 export default function Authenticated({ children }) {
     return (
@@ -8,14 +9,18 @@ export default function Authenticated({ children }) {
                 data-magic-cursor="show"
                 data-enter="fadeInLeft"
                 data-exit=""
-            ></div>
-            {/* SideBar */}
-            <Sidebar />
+            >
+                {/* Mobile Menu */}
 
-            <div className="elisc_tm_mainpart w-full min-h-[100vh] clear-both float-left pl-[370px]">
-                {/* HOME */}
-                <div className="mainpart_inner w-full min-h-[100vh] clear-both float-left relative">
-                    <main>{children}</main>
+                <MobileMenu />
+                {/* SideBar */}
+                <Sidebar />
+
+                <div className="elisc_tm_mainpart w-full min-h-[100vh] clear-both float-left pl-[370px]">
+                    {/* HOME */}
+                    <div className="mainpart_inner w-full min-h-[100vh] clear-both float-left relative">
+                        <main>{children}</main>
+                    </div>
                 </div>
             </div>
         </>

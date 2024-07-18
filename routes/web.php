@@ -29,6 +29,7 @@ Route::get('/services', [PortfolioController::class, 'services'])->name('portfol
 Route::get('/portfolio', [PortfolioController::class, 'portfolio'])->name('portfolio.home');
 Route::get('/contact-me', [PortfolioController::class, 'contact'])->name('portfolio.contact');
 Route::post('/contact-me', [PortfolioController::class, 'contactSend'])->name('portfolio.contact.post');
+Route::get('/sidebar', [PortfolioController::class, 'sidebar'])->name('portfolio.sidebar');
 
 // Route::get('/', function () {
 //     return Inertia::render('Welcome', [

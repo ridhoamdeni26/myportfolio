@@ -136,7 +136,8 @@ class PortfolioController extends Controller
 
         return Inertia::render('User/Service', [
             'services' => $services,
-            'email' => $email
+            'email' => $email,
+            'profiles' => $profiles,
         ]);
     }
 
@@ -147,6 +148,7 @@ class PortfolioController extends Controller
 
         $portfolio = PortfolioProject::orderBy('id')
             ->get();
+        $profiles = Profile::first();
 
         Visitor::create([
             'ip_address' => $request->getClientIp(),
@@ -167,7 +169,8 @@ class PortfolioController extends Controller
         ]);
 
         return Inertia::render('User/Portfolio', [
-            'portfolio' => $portfolio
+            'portfolio' => $portfolio,
+            'profiles' => $profiles,
         ]);
     }
 
@@ -176,11 +179,7 @@ class PortfolioController extends Controller
         $agent = new Agent();
         $location = Location::get();
 
-        $profiles = Myprofiles::orderBy('id')
-            ->first();
-        return Inertia::render('User/Contact', [
-            'profiles' => $profiles,
-        ]);
+        $profiles = Profile::first();
 
         Visitor::create([
             'ip_address' => $request->getClientIp(),
@@ -198,6 +197,10 @@ class PortfolioController extends Controller
             'country' => $location->countryName,
             'zipcode' => $location->zipCode,
             'timezone' => $location->timezone,
+        ]);
+
+        return Inertia::render('User/Contact', [
+            'profiles' => $profiles,
         ]);
     }
 
@@ -218,8 +221,7 @@ class PortfolioController extends Controller
 
             Contactme::create($data);
 
-            $profiles = Myprofiles::orderBy('id')
-                ->first();
+            $profiles = Profile::first();
 
             return Inertia::render('User/Contact', [
                 'profiles' => $profiles,
@@ -239,5 +241,23 @@ class PortfolioController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => 'Error storing contact data']);
         }
+    }
+
+    public function sidebar()
+    {
+        $profiles = Profile::first();
+
+        return Inertia::render('Layouts/User/Sidebar/Sidebar', [
+            'profiles' => $profiles,
+        ]);
+    }
+
+    public function mobileMenu()
+    {
+        $profiles = Profile::first();
+
+        return Inertia::render('Layouts/User/Authenticated/MobileMenu', [
+            'profiles' => $profiles,
+        ]);
     }
 }
