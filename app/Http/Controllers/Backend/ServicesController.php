@@ -34,13 +34,7 @@ class ServicesController extends Controller
 
         $service = $query->paginate($perPage, ['*'], 'page', $page);
 
-        return Inertia::render('Services/Index', [
-            'breadcrumb' => $breadcrumb,
-            'currentPage' => $currentPage,
-            'service' => $service,
-            'perPage' => $perPage,
-            'nowPage' => $page,
-        ]);
+        return ['message' => 'ok'];
     }
 
     public function create(ServiceCreateRequest $request)
