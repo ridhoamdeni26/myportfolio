@@ -1,9 +1,11 @@
 import { useState } from "react";
 import Slider from "react-slick";
 import PortfolioModal from "./PortfolioModal";
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 export default function PotfolioCarousel({ portfolio }) {
+    console.log(portfolio);
+
     const [showModal, setShowModal] = useState(false);
     const [selectedPortfolio, setSelectedPortfolio] = useState(null);
 
@@ -32,6 +34,24 @@ export default function PotfolioCarousel({ portfolio }) {
         autoplay: true,
         autoplaySpeed: 3000,
         pauseOnHover: true,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                    dots: portfolio.length > 2,
+                },
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    dots: portfolio.length > 1,
+                },
+            },
+        ],
     };
 
     const fadeInVariants = {
@@ -43,6 +63,16 @@ export default function PotfolioCarousel({ portfolio }) {
         hover: { scale: 1.1 },
         tap: { scale: 0.9 },
     };
+
+    const classPortfolioCarousel = (portfolioLength) => {
+        if (portfolioLength <= 2) {
+            return "text-md sm:pr-0 md:pr-[13rem] leading-6 ";
+        } else {
+            return "text-md sm:pr-0 md:pr-4 leading-6 ";
+        }
+    };
+
+    const portfolioLength = portfolio.length;
 
     return (
         <>
@@ -59,7 +89,7 @@ export default function PotfolioCarousel({ portfolio }) {
                             <div className="carousel-item relative rounded-[4px] overflow-hidden mb-[25px]">
                                 <motion.img
                                     src={`/storage/${portfolio.image_thumbnail}`}
-                                    className="rounded-box"
+                                    className="rounded-box block mx-auto sm:mx-0"
                                     alt=""
                                     whileHover="hover"
                                     whileTap="tap"
@@ -75,7 +105,11 @@ export default function PotfolioCarousel({ portfolio }) {
                                         {portfolio.title}
                                     </a>
                                 </span>
-                                <div className="text-md pr-4 leading-6">
+                                <div
+                                    className={classPortfolioCarousel(
+                                        portfolioLength
+                                    )}
+                                >
                                     {truncateText(portfolio.description, 150)}
                                 </div>
                             </div>

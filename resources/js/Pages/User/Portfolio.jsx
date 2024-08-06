@@ -12,7 +12,7 @@ export default function Portfolio({ portfolio }) {
                     <AnimatePortfolio />
                     <div className="elisc_tm_portfolio w-full float-left pt-[50px]">
                         <div className="tm_content w-full max-w-[1250px] h-auto clear-both my-0 mx-auto py-0 px-[20px]">
-                            <div className="elisc_tm_portfolio_title w-full float-left flex items-end justify-between">
+                            <div className="elisc_tm_portfolio_title w-full float-left flex justify-between">
                                 <div className="elisc_tm_title w-auto float-left">
                                     <span className="w-full float-left font-medium uppercase inline-block mb-[12px]">
                                         - Projects
