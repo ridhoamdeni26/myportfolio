@@ -53,6 +53,7 @@ class PortfolioController extends Controller
             'client_name' => $request->client_name,
             'category' => $request->category,
             'date' => $request->selectedDate,
+            'link' => $request->link,
             'description' => $request->description
         ];
 
@@ -70,6 +71,22 @@ class PortfolioController extends Controller
 
         if ($request->hasFile('image_description3')) {
             $data['image_description3'] = Storage::disk('public')->put('imagedescription3', $request->file('image_description3'));
+        }
+
+        if ($request->hasFile('icon1')) {
+            $data['icon1'] = Storage::disk('public')->put('icon1', $request->file('icon1'));
+        }
+
+        if ($request->hasFile('icon2')) {
+            $data['icon2'] = Storage::disk('public')->put('icon2', $request->file('icon2'));
+        }
+
+        if ($request->hasFile('icon3')) {
+            $data['icon3'] = Storage::disk('public')->put('icon3', $request->file('icon3'));
+        }
+
+        if ($request->hasFile('icon4')) {
+            $data['icon4'] = Storage::disk('public')->put('icon4', $request->file('icon4'));
         }
 
         $create = PortfolioProject::create($data);
@@ -103,6 +120,7 @@ class PortfolioController extends Controller
             'title' => $request->title,
             'client_name' => $request->client_name,
             'category' => $request->category,
+            'link' => $request->link,
             'date' => $request->date,
             'description' => $request->description
         ];
@@ -133,6 +151,34 @@ class PortfolioController extends Controller
             Storage::disk('public')->delete($portfolio->image_description3);
         } else {
             $data['image_description3'] = $portfolio->image_description3;
+        }
+
+        if ($request->hasFile('icon1')) {
+            $data['icon1'] = Storage::disk('public')->put('icon1', $request->file('icon1'));
+            Storage::disk('public')->delete($portfolio->icon1);
+        } else {
+            $data['icon1'] = $portfolio->icon1;
+        }
+
+        if ($request->hasFile('icon2')) {
+            $data['icon2'] = Storage::disk('public')->put('icon2', $request->file('icon2'));
+            Storage::disk('public')->delete($portfolio->icon2);
+        } else {
+            $data['icon2'] = $portfolio->icon2;
+        }
+
+        if ($request->hasFile('icon3')) {
+            $data['icon3'] = Storage::disk('public')->put('icon3', $request->file('icon3'));
+            Storage::disk('public')->delete($portfolio->icon3);
+        } else {
+            $data['icon3'] = $portfolio->icon3;
+        }
+
+        if ($request->hasFile('icon4')) {
+            $data['icon4'] = Storage::disk('public')->put('icon4', $request->file('icon4'));
+            Storage::disk('public')->delete($portfolio->icon4);
+        } else {
+            $data['icon4'] = $portfolio->icon4;
         }
 
         $updatePortfolio = $portfolio->update($data);

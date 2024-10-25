@@ -1,9 +1,11 @@
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 export default function PortfolioModal({ showModal, closeModal, portfolio }) {
     const fadeInVariants = {
         hidden: { opacity: 0 },
         visible: { opacity: 1 },
     };
+
+    console.log(portfolio);
 
     return (
         <div>
@@ -51,6 +53,16 @@ export default function PortfolioModal({ showModal, closeModal, portfolio }) {
                                 <div class="md:col-span-1">
                                     <div class="mb-5 text-left">
                                         <div class="text-[#28767A] text-lg font-bold">
+                                            Link Website
+                                        </div>
+                                        <p class="text-md text-slate-400">
+                                            <a class="link link-success">
+                                                {portfolio.link}
+                                            </a>
+                                        </p>
+                                    </div>
+                                    <div class="mb-5 text-left">
+                                        <div class="text-[#28767A] text-lg font-bold">
                                             Client
                                         </div>
                                         <p class="text-md text-slate-400">
@@ -74,6 +86,42 @@ export default function PortfolioModal({ showModal, closeModal, portfolio }) {
                                         <p class="text-md text-slate-400">
                                             {portfolio.date}
                                         </p>
+                                    </div>
+
+                                    <div className="mb-5">
+                                        <div className="text-[#28767A] text-lg font-bold">
+                                            Tech
+                                        </div>
+                                        <div className="space-x-1 my-4">
+                                            <div className="avatar">
+                                                <div className="w-9 rounded-full">
+                                                    <img
+                                                        src={`/storage/${portfolio.icon1}`}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="avatar">
+                                                <div className="w-9 rounded-full">
+                                                    <img
+                                                        src={`/storage/${portfolio.icon2}`}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="avatar">
+                                                <div className="w-9 rounded-full">
+                                                    <img
+                                                        src={`/storage/${portfolio.icon3}`}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="avatar">
+                                                <div className="w-9 rounded-full">
+                                                    <img
+                                                        src={`/storage/${portfolio.icon4}`}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

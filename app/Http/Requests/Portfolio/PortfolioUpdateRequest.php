@@ -27,10 +27,15 @@ class PortfolioUpdateRequest extends FormRequest
             'category' => ['required', 'string'],
             'date' => ['required', 'date'],
             'description' => ['required', 'string', 'min:10'],
+            'link' => ['required', 'url'],
             'image_thumbnail' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
             'image_description' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
             'image_description2' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
             'image_description3' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'icon1' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+            'icon2' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+            'icon3' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+            'icon4' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ];
     }
 }

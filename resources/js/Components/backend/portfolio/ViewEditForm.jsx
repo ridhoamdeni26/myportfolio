@@ -9,11 +9,13 @@ import { useToasts } from "react-toast-notifications";
 import { Icon } from "@iconify/react";
 import DatePicker from "../DatePicker";
 
-function ViewEditForm({ isOpen,
+function ViewEditForm({
+    isOpen,
     closeModal,
     actionType,
     nameModal,
-    selectedData }) {
+    selectedData,
+}) {
     const { addToast } = useToasts();
     const isViewAction = actionType === "view";
 
@@ -21,6 +23,10 @@ function ViewEditForm({ isOpen,
     const [fileImageDescription1, setFileImageDescription1] = useState(null);
     const [fileImageDescription2, setFileImageDescription2] = useState(null);
     const [fileImageDescription3, setFileImageDescription3] = useState(null);
+    const [fileImageicon1, setFileImageicon1] = useState(null);
+    const [fileImageicon2, setFileImageicon2] = useState(null);
+    const [fileImageicon3, setFileImageicon3] = useState(null);
+    const [fileImageicon4, setFileImageicon4] = useState(null);
 
     useEffect(() => {
         if (selectedData) {
@@ -41,17 +47,17 @@ function ViewEditForm({ isOpen,
 
     const handleDatePickerChange = (datePick) => {
         if (Array.isArray(datePick) && datePick.length === 0) {
-            setData('date', ''); // Set tanggal ke kosong jika datePick adalah array kosong
+            setData("date", ""); // Set tanggal ke kosong jika datePick adalah array kosong
         } else {
             const date = datePick[0];
 
             const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, "0");
+            const day = String(date.getDate()).padStart(2, "0");
 
             const formattedDate = `${year}-${month}-${day}`;
 
-            setData('date', formattedDate);
+            setData("date", formattedDate);
         }
     };
 
@@ -90,6 +96,24 @@ function ViewEditForm({ isOpen,
             delete data.image_description3;
         }
 
+        if (data.icon1 === selectedData.icon1) {
+            delete data.icon1;
+        }
+
+        if (data.icon2 === selectedData.icon2) {
+            delete data.icon2;
+        }
+
+        if (data.icon3 === selectedData.icon3) {
+            delete data.icon3;
+        }
+
+        if (data.icon4 === selectedData.icon4) {
+            delete data.icon4;
+        }
+
+        console.log(selectedData.icon3, data.icon3);
+
         post(route("portfolio.update", selectedData.id), {
             ...data,
             onSuccess: (page) => {
@@ -97,6 +121,10 @@ function ViewEditForm({ isOpen,
                 setFileImageDescription1(null);
                 setFileImageDescription2(null);
                 setFileImageDescription3(null);
+                setFileImageicon1(null);
+                setFileImageicon2(null);
+                setFileImageicon3(null);
+                setFileImageicon4(null);
                 closeModal();
                 if (page.props.toast) {
                     const { type, message } = page.props.toast;
@@ -173,10 +201,11 @@ function ViewEditForm({ isOpen,
                                                         id="title"
                                                         type="text"
                                                         name="title"
-                                                        className={`form-control !pr-9 ${errors.title
-                                                            ? "!border-danger-500"
-                                                            : ""
-                                                            }`}
+                                                        className={`form-control !pr-9 ${
+                                                            errors.title
+                                                                ? "!border-danger-500"
+                                                                : ""
+                                                        }`}
                                                         value={data.title}
                                                         onChange={
                                                             handleInputChange
@@ -209,10 +238,11 @@ function ViewEditForm({ isOpen,
                                                         id="client_name"
                                                         type="text"
                                                         name="client_name"
-                                                        className={`form-control !pr-9 ${errors.client_name
-                                                            ? "!border-danger-500"
-                                                            : ""
-                                                            }`}
+                                                        className={`form-control !pr-9 ${
+                                                            errors.client_name
+                                                                ? "!border-danger-500"
+                                                                : ""
+                                                        }`}
                                                         value={data.client_name}
                                                         onChange={
                                                             handleInputChange
@@ -245,10 +275,11 @@ function ViewEditForm({ isOpen,
                                                         id="category"
                                                         type="text"
                                                         name="category"
-                                                        className={`form-control !pr-9 ${errors.category
-                                                            ? "!border-danger-500"
-                                                            : ""
-                                                            }`}
+                                                        className={`form-control !pr-9 ${
+                                                            errors.category
+                                                                ? "!border-danger-500"
+                                                                : ""
+                                                        }`}
                                                         value={data.category}
                                                         onChange={
                                                             handleInputChange
@@ -280,13 +311,17 @@ function ViewEditForm({ isOpen,
                                                     <DatePicker
                                                         autoComplete="off"
                                                         name="date"
-                                                        className={`${errors.date
-                                                            ? "!border-danger-500"
-                                                            : ""
-                                                            }`}
+                                                        className={`${
+                                                            errors.date
+                                                                ? "!border-danger-500"
+                                                                : ""
+                                                        }`}
                                                         disabled={isViewAction}
                                                         value={data.date}
-                                                        onChange={handleDatePickerChange} />
+                                                        onChange={
+                                                            handleDatePickerChange
+                                                        }
+                                                    />
                                                     <div className="absolute right-0 top-1/2 -translate-y-1/2 w-9 h-full border-l border-l-slate-200 dark:border-l-slate-700 flex items-center justify-center">
                                                         <Icon icon="heroicons-solid:calendar-days"></Icon>
                                                     </div>
@@ -305,6 +340,43 @@ function ViewEditForm({ isOpen,
 
                                             <div className="input-area">
                                                 <InputLabel
+                                                    htmlFor="link"
+                                                    value="Link Website"
+                                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                />
+
+                                                <div className="relative">
+                                                    <TextInput
+                                                        id="link"
+                                                        type="text"
+                                                        name="link"
+                                                        className={`form-control !pr-9 ${
+                                                            errors.link
+                                                                ? "!border-danger-500"
+                                                                : ""
+                                                        }`}
+                                                        value={data.link}
+                                                        onChange={
+                                                            handleInputChange
+                                                        }
+                                                        disabled={isViewAction}
+                                                        autoComplete="off"
+                                                    />
+                                                    {errors.link && (
+                                                        <Icon
+                                                            className={`absolute top-1/2 right-3 -translate-y-1/2 text-danger-500 text-xl`}
+                                                            icon="mdi:warning-octagon-outline"
+                                                        ></Icon>
+                                                    )}
+                                                </div>
+
+                                                <InputErrorBackend
+                                                    message={errors.link}
+                                                />
+                                            </div>
+
+                                            <div className="input-area">
+                                                <InputLabel
                                                     htmlFor="description"
                                                     value="Description Short"
                                                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -314,13 +386,12 @@ function ViewEditForm({ isOpen,
                                                     <TextAreaInput
                                                         id="description"
                                                         name="description"
-                                                        className={`${errors.description
-                                                            ? "!border-danger-500"
-                                                            : ""
-                                                            }`}
-                                                        value={
-                                                            data.description
-                                                        }
+                                                        className={`${
+                                                            errors.description
+                                                                ? "!border-danger-500"
+                                                                : ""
+                                                        }`}
+                                                        value={data.description}
                                                         onChange={
                                                             handleInputChange
                                                         }
@@ -336,13 +407,12 @@ function ViewEditForm({ isOpen,
                                                 </div>
 
                                                 <InputErrorBackend
-                                                    message={
-                                                        errors.description
-                                                    }
+                                                    message={errors.description}
                                                 />
                                             </div>
 
                                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-7">
+                                                {/* Image Description */}
                                                 <div className="input-area">
                                                     <InputLabel
                                                         htmlFor="image_thumbnail"
@@ -359,7 +429,9 @@ function ViewEditForm({ isOpen,
                                                                         className="w-full hidden"
                                                                         name="image_thumbnail"
                                                                         accept=".jpg, .jpeg, .png"
-                                                                        onChange={(e) =>
+                                                                        onChange={(
+                                                                            e
+                                                                        ) =>
                                                                             handleFileChange(
                                                                                 e,
                                                                                 setImageThumbnail,
@@ -423,7 +495,9 @@ function ViewEditForm({ isOpen,
                                                     </div>
 
                                                     <InputErrorBackend
-                                                        message={errors.image_thumbnail}
+                                                        message={
+                                                            errors.image_thumbnail
+                                                        }
                                                     />
                                                 </div>
 
@@ -509,7 +583,9 @@ function ViewEditForm({ isOpen,
                                                     </div>
 
                                                     <InputErrorBackend
-                                                        message={errors.image_description1}
+                                                        message={
+                                                            errors.image_description1
+                                                        }
                                                     />
                                                 </div>
 
@@ -595,7 +671,9 @@ function ViewEditForm({ isOpen,
                                                     </div>
 
                                                     <InputErrorBackend
-                                                        message={errors.image_description2}
+                                                        message={
+                                                            errors.image_description2
+                                                        }
                                                     />
                                                 </div>
 
@@ -681,7 +759,354 @@ function ViewEditForm({ isOpen,
                                                     </div>
 
                                                     <InputErrorBackend
-                                                        message={errors.image_description3}
+                                                        message={
+                                                            errors.image_description3
+                                                        }
+                                                    />
+                                                </div>
+
+                                                {/* Image Icon */}
+                                                <div className="input-area">
+                                                    <InputLabel
+                                                        htmlFor="icon1"
+                                                        value="Icon 1"
+                                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                    />
+
+                                                    <div className="relative">
+                                                        {!isViewAction && (
+                                                            <>
+                                                                <label>
+                                                                    <TextInput
+                                                                        type="file"
+                                                                        className="w-full hidden"
+                                                                        name="icon1"
+                                                                        accept=".jpg, .jpeg, .png"
+                                                                        onChange={(
+                                                                            e
+                                                                        ) =>
+                                                                            handleFileChange(
+                                                                                e,
+                                                                                setFileImageicon1,
+                                                                                "icon1"
+                                                                            )
+                                                                        }
+                                                                    />
+                                                                    <span className="!py-1 !text-xs w-full h-[40px] file-control flex items-center custom-class">
+                                                                        <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
+                                                                            <span
+                                                                                id="placeholder"
+                                                                                className="text-slate-400"
+                                                                            >
+                                                                                Choose
+                                                                                a
+                                                                                file
+                                                                                or
+                                                                                drop
+                                                                                it
+                                                                                here...
+                                                                            </span>
+                                                                        </span>
+                                                                        <span className="file-name flex-none cursor-pointer border-l px-4 border-slate-200 dark:border-slate-700 h-full inline-flex items-center bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-sm rounded-tr rounded-br font-normal">
+                                                                            Browse
+                                                                        </span>
+                                                                    </span>
+                                                                </label>
+                                                            </>
+                                                        )}
+
+                                                        <div
+                                                            id="file-preview"
+                                                            className="ml-8"
+                                                        >
+                                                            {selectedData.icon1 && (
+                                                                <img
+                                                                    src={`/storage/${selectedData.icon1}`}
+                                                                    alt="Profile"
+                                                                    className="w-12 h-12 object-cover rounded-full border border-slate-200 dark:border-slate-700"
+                                                                />
+                                                            )}
+
+                                                            {!isViewAction &&
+                                                                fileImageicon1 && (
+                                                                    <img
+                                                                        src={
+                                                                            fileImageicon1
+                                                                        }
+                                                                        alt="Preview"
+                                                                        className="w-full h-auto max-h-48 object-contain border border-slate-200 dark:border-slate-700 rounded-md mr-4"
+                                                                    />
+                                                                )}
+                                                        </div>
+
+                                                        {errors.icon1 && (
+                                                            <Icon
+                                                                className={`absolute top-1/2 right-3 -translate-y-1/2 text-danger-500 text-xl`}
+                                                                icon="mdi:warning-octagon-outline"
+                                                            ></Icon>
+                                                        )}
+                                                    </div>
+
+                                                    <InputErrorBackend
+                                                        message={errors.icon1}
+                                                    />
+                                                </div>
+
+                                                <div className="input-area">
+                                                    <InputLabel
+                                                        htmlFor="icon2"
+                                                        value="Icon 1"
+                                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                    />
+
+                                                    <div className="relative">
+                                                        {!isViewAction && (
+                                                            <>
+                                                                <label>
+                                                                    <TextInput
+                                                                        type="file"
+                                                                        className="w-full hidden"
+                                                                        name="icon2"
+                                                                        accept=".jpg, .jpeg, .png"
+                                                                        onChange={(
+                                                                            e
+                                                                        ) =>
+                                                                            handleFileChange(
+                                                                                e,
+                                                                                setFileImageicon2,
+                                                                                "icon2"
+                                                                            )
+                                                                        }
+                                                                    />
+                                                                    <span className="!py-1 !text-xs w-full h-[40px] file-control flex items-center custom-class">
+                                                                        <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
+                                                                            <span
+                                                                                id="placeholder"
+                                                                                className="text-slate-400"
+                                                                            >
+                                                                                Choose
+                                                                                a
+                                                                                file
+                                                                                or
+                                                                                drop
+                                                                                it
+                                                                                here...
+                                                                            </span>
+                                                                        </span>
+                                                                        <span className="file-name flex-none cursor-pointer border-l px-4 border-slate-200 dark:border-slate-700 h-full inline-flex items-center bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-sm rounded-tr rounded-br font-normal">
+                                                                            Browse
+                                                                        </span>
+                                                                    </span>
+                                                                </label>
+                                                            </>
+                                                        )}
+
+                                                        <div
+                                                            id="file-preview"
+                                                            className="ml-8"
+                                                        >
+                                                            {selectedData.icon2 && (
+                                                                <img
+                                                                    src={`/storage/${selectedData.icon2}`}
+                                                                    alt="Profile"
+                                                                    className="w-12 h-12 object-cover rounded-full border border-slate-200 dark:border-slate-700"
+                                                                />
+                                                            )}
+
+                                                            {!isViewAction &&
+                                                                fileImageicon2 && (
+                                                                    <img
+                                                                        src={
+                                                                            fileImageicon2
+                                                                        }
+                                                                        alt="Preview"
+                                                                        className="w-full h-auto max-h-48 object-contain border border-slate-200 dark:border-slate-700 rounded-md mr-4"
+                                                                    />
+                                                                )}
+                                                        </div>
+
+                                                        {errors.icon2 && (
+                                                            <Icon
+                                                                className={`absolute top-1/2 right-3 -translate-y-1/2 text-danger-500 text-xl`}
+                                                                icon="mdi:warning-octagon-outline"
+                                                            ></Icon>
+                                                        )}
+                                                    </div>
+
+                                                    <InputErrorBackend
+                                                        message={errors.icon2}
+                                                    />
+                                                </div>
+
+                                                <div className="input-area">
+                                                    <InputLabel
+                                                        htmlFor="icon3"
+                                                        value="Icon 1"
+                                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                    />
+
+                                                    <div className="relative">
+                                                        {!isViewAction && (
+                                                            <>
+                                                                <label>
+                                                                    <TextInput
+                                                                        type="file"
+                                                                        className="w-full hidden"
+                                                                        name="icon3"
+                                                                        accept=".jpg, .jpeg, .png"
+                                                                        onChange={(
+                                                                            e
+                                                                        ) =>
+                                                                            handleFileChange(
+                                                                                e,
+                                                                                setFileImageicon3,
+                                                                                "icon3"
+                                                                            )
+                                                                        }
+                                                                    />
+                                                                    <span className="!py-1 !text-xs w-full h-[40px] file-control flex items-center custom-class">
+                                                                        <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
+                                                                            <span
+                                                                                id="placeholder"
+                                                                                className="text-slate-400"
+                                                                            >
+                                                                                Choose
+                                                                                a
+                                                                                file
+                                                                                or
+                                                                                drop
+                                                                                it
+                                                                                here...
+                                                                            </span>
+                                                                        </span>
+                                                                        <span className="file-name flex-none cursor-pointer border-l px-4 border-slate-200 dark:border-slate-700 h-full inline-flex items-center bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-sm rounded-tr rounded-br font-normal">
+                                                                            Browse
+                                                                        </span>
+                                                                    </span>
+                                                                </label>
+                                                            </>
+                                                        )}
+
+                                                        <div
+                                                            id="file-preview"
+                                                            className="ml-8"
+                                                        >
+                                                            {selectedData.icon3 && (
+                                                                <img
+                                                                    src={`/storage/${selectedData.icon3}`}
+                                                                    alt="Profile"
+                                                                    className="w-12 h-12 object-cover rounded-full border border-slate-200 dark:border-slate-700"
+                                                                />
+                                                            )}
+
+                                                            {!isViewAction &&
+                                                                fileImageicon3 && (
+                                                                    <img
+                                                                        src={
+                                                                            fileImageicon3
+                                                                        }
+                                                                        alt="Preview"
+                                                                        className="w-full h-auto max-h-48 object-contain border border-slate-200 dark:border-slate-700 rounded-md mr-4"
+                                                                    />
+                                                                )}
+                                                        </div>
+
+                                                        {errors.icon3 && (
+                                                            <Icon
+                                                                className={`absolute top-1/2 right-3 -translate-y-1/2 text-danger-500 text-xl`}
+                                                                icon="mdi:warning-octagon-outline"
+                                                            ></Icon>
+                                                        )}
+                                                    </div>
+
+                                                    <InputErrorBackend
+                                                        message={errors.icon3}
+                                                    />
+                                                </div>
+
+                                                <div className="input-area">
+                                                    <InputLabel
+                                                        htmlFor="icon4"
+                                                        value="Icon 1"
+                                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                    />
+
+                                                    <div className="relative">
+                                                        {!isViewAction && (
+                                                            <>
+                                                                <label>
+                                                                    <TextInput
+                                                                        type="file"
+                                                                        className="w-full hidden"
+                                                                        name="icon4"
+                                                                        accept=".jpg, .jpeg, .png"
+                                                                        onChange={(
+                                                                            e
+                                                                        ) =>
+                                                                            handleFileChange(
+                                                                                e,
+                                                                                setFileImageicon4,
+                                                                                "icon4"
+                                                                            )
+                                                                        }
+                                                                    />
+                                                                    <span className="!py-1 !text-xs w-full h-[40px] file-control flex items-center custom-class">
+                                                                        <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
+                                                                            <span
+                                                                                id="placeholder"
+                                                                                className="text-slate-400"
+                                                                            >
+                                                                                Choose
+                                                                                a
+                                                                                file
+                                                                                or
+                                                                                drop
+                                                                                it
+                                                                                here...
+                                                                            </span>
+                                                                        </span>
+                                                                        <span className="file-name flex-none cursor-pointer border-l px-4 border-slate-200 dark:border-slate-700 h-full inline-flex items-center bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-sm rounded-tr rounded-br font-normal">
+                                                                            Browse
+                                                                        </span>
+                                                                    </span>
+                                                                </label>
+                                                            </>
+                                                        )}
+
+                                                        <div
+                                                            id="file-preview"
+                                                            className="ml-8"
+                                                        >
+                                                            {selectedData.icon4 && (
+                                                                <img
+                                                                    src={`/storage/${selectedData.icon4}`}
+                                                                    alt="Profile"
+                                                                    className="w-12 h-12 object-cover rounded-full border border-slate-200 dark:border-slate-700"
+                                                                />
+                                                            )}
+
+                                                            {!isViewAction &&
+                                                                fileImageicon4 && (
+                                                                    <img
+                                                                        src={
+                                                                            fileImageicon4
+                                                                        }
+                                                                        alt="Preview"
+                                                                        className="w-full h-auto max-h-48 object-contain border border-slate-200 dark:border-slate-700 rounded-md mr-4"
+                                                                    />
+                                                                )}
+                                                        </div>
+
+                                                        {errors.icon4 && (
+                                                            <Icon
+                                                                className={`absolute top-1/2 right-3 -translate-y-1/2 text-danger-500 text-xl`}
+                                                                icon="mdi:warning-octagon-outline"
+                                                            ></Icon>
+                                                        )}
+                                                    </div>
+
+                                                    <InputErrorBackend
+                                                        message={errors.icon4}
                                                     />
                                                 </div>
                                             </div>
@@ -706,7 +1131,7 @@ function ViewEditForm({ isOpen,
                 </div>
             )}
         </>
-    )
+    );
 }
 
-export default ViewEditForm
+export default ViewEditForm;

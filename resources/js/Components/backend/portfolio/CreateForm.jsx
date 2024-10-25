@@ -15,6 +15,10 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
     const [fileImageDescription, setFileImageDescription] = useState(null);
     const [fileImageDescription2, setFileImageDescription2] = useState(null);
     const [fileImageDescription3, setFileImageDescription3] = useState(null);
+    const [fileImageIcon1, setFileImageIcon1] = useState(null);
+    const [fileImageIcon2, setFileImageIcon2] = useState(null);
+    const [fileImageIcon3, setFileImageIcon3] = useState(null);
+    const [fileImageIcon4, setFileImageIcon4] = useState(null);
     const [selectedDate, setSelectedDate] = useState(null);
 
     const { data, setData, errors, post, reset, processing } = useForm({
@@ -22,10 +26,15 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
         client_name: "",
         category: "",
         description: "",
+        link: "",
         image_thumbnail: "",
         image_description: "",
         image_description2: "",
         image_description3: "",
+        icon1: "",
+        icon2: "",
+        icon3: "",
+        icon4: "",
         selectedDate: null,
     });
 
@@ -36,10 +45,15 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
                 "client_name",
                 "category",
                 "description",
+                "link",
                 "image_thumbnail",
                 "image_description",
                 "image_description2",
                 "image_description3",
+                "icon1",
+                "icon2",
+                "icon3",
+                "icon4",
                 "selectedDate"
             );
         };
@@ -49,12 +63,12 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
         const selectedDate = date[0];
 
         const year = selectedDate.getFullYear();
-        const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
-        const day = String(selectedDate.getDate()).padStart(2, '0');
+        const month = String(selectedDate.getMonth() + 1).padStart(2, "0");
+        const day = String(selectedDate.getDate()).padStart(2, "0");
 
         const formattedDate = `${year}-${month}-${day}`;
 
-        setData('selectedDate', formattedDate);
+        setData("selectedDate", formattedDate);
     };
 
     const handleFileChange = (e, previewSetter, fieldName) => {
@@ -83,6 +97,10 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
                 setFileImageDescription(null);
                 setFileImageDescription2(null);
                 setFileImageDescription3(null);
+                setFileImageIcon1(null);
+                setFileImageIcon2(null);
+                setFileImageIcon3(null);
+                setFileImageIcon4(null);
                 closeModal();
                 reset();
                 if (page.props.toast) {
@@ -106,7 +124,6 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
             },
         });
     };
-
 
     return (
         <>
@@ -159,10 +176,11 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
                                                     <TextInput
                                                         type="text"
                                                         name="title"
-                                                        className={`form-control !pr-9 ${errors.title
-                                                            ? "!border-danger-500"
-                                                            : ""
-                                                            }`}
+                                                        className={`form-control !pr-9 ${
+                                                            errors.title
+                                                                ? "!border-danger-500"
+                                                                : ""
+                                                        }`}
                                                         onChange={(e) =>
                                                             setData(
                                                                 "title",
@@ -196,10 +214,11 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
                                                     <TextInput
                                                         type="text"
                                                         name="client_name"
-                                                        className={`form-control !pr-9 ${errors.client_name
-                                                            ? "!border-danger-500"
-                                                            : ""
-                                                            }`}
+                                                        className={`form-control !pr-9 ${
+                                                            errors.client_name
+                                                                ? "!border-danger-500"
+                                                                : ""
+                                                        }`}
                                                         onChange={(e) =>
                                                             setData(
                                                                 "client_name",
@@ -233,10 +252,11 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
                                                     <TextInput
                                                         type="text"
                                                         name="category"
-                                                        className={`form-control !pr-9 ${errors.category
-                                                            ? "!border-danger-500"
-                                                            : ""
-                                                            }`}
+                                                        className={`form-control !pr-9 ${
+                                                            errors.category
+                                                                ? "!border-danger-500"
+                                                                : ""
+                                                        }`}
                                                         onChange={(e) =>
                                                             setData(
                                                                 "category",
@@ -267,10 +287,19 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
                                                 />
 
                                                 <div className="relative">
-                                                    <DatePicker autoComplete="off" value={selectedDate} onChange={handleDatePickerChange} name="selectedDate" className={`${errors.selectedDate
-                                                        ? "!border-danger-500"
-                                                        : ""
-                                                        }`} />
+                                                    <DatePicker
+                                                        autoComplete="off"
+                                                        value={selectedDate}
+                                                        onChange={
+                                                            handleDatePickerChange
+                                                        }
+                                                        name="selectedDate"
+                                                        className={`${
+                                                            errors.selectedDate
+                                                                ? "!border-danger-500"
+                                                                : ""
+                                                        }`}
+                                                    />
                                                     <div className="absolute right-0 top-1/2 -translate-y-1/2 w-9 h-full border-l border-l-slate-200 dark:border-l-slate-700 flex items-center justify-center">
                                                         <iconify-icon icon="heroicons-solid:calendar-days"></iconify-icon>
                                                     </div>
@@ -283,7 +312,47 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
                                                 </div>
 
                                                 <InputErrorBackend
-                                                    message={errors.selectedDate}
+                                                    message={
+                                                        errors.selectedDate
+                                                    }
+                                                />
+                                            </div>
+
+                                            <div className="input-area">
+                                                <InputLabel
+                                                    htmlFor="link"
+                                                    value="Link Website"
+                                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                />
+
+                                                <div className="relative">
+                                                    <TextInput
+                                                        type="text"
+                                                        name="link"
+                                                        className={`form-control !pr-9 ${
+                                                            errors.link
+                                                                ? "!border-danger-500"
+                                                                : ""
+                                                        }`}
+                                                        onChange={(e) =>
+                                                            setData(
+                                                                "link",
+                                                                e.target.value
+                                                            )
+                                                        }
+                                                        value={data.link}
+                                                        autoComplete="off"
+                                                    />
+                                                    {errors.link && (
+                                                        <Icon
+                                                            className={`absolute top-1/2 right-3 -translate-y-1/2 text-danger-500 text-xl`}
+                                                            icon="mdi:warning-octagon-outline"
+                                                        ></Icon>
+                                                    )}
+                                                </div>
+
+                                                <InputErrorBackend
+                                                    message={errors.link}
                                                 />
                                             </div>
 
@@ -297,13 +366,12 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
                                                 <div className="relative">
                                                     <TextAreaInput
                                                         name="description"
-                                                        className={`${errors.description
-                                                            ? "!border-danger-500"
-                                                            : ""
-                                                            }`}
-                                                        value={
-                                                            data.description
-                                                        }
+                                                        className={`${
+                                                            errors.description
+                                                                ? "!border-danger-500"
+                                                                : ""
+                                                        }`}
+                                                        value={data.description}
                                                         onChange={(e) =>
                                                             setData(
                                                                 "description",
@@ -323,13 +391,12 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
                                                 </div>
 
                                                 <InputErrorBackend
-                                                    message={
-                                                        errors.description
-                                                    }
+                                                    message={errors.description}
                                                 />
                                             </div>
 
                                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-7">
+                                                {/* Image Thumbnail */}
                                                 <div className="input-area">
                                                     <InputLabel
                                                         htmlFor="image_thumbnail"
@@ -345,7 +412,9 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
                                                                     className="w-full hidden"
                                                                     name="image_thumbnail"
                                                                     accept=".jpg, .jpeg, .png"
-                                                                    onChange={(e) =>
+                                                                    onChange={(
+                                                                        e
+                                                                    ) =>
                                                                         handleFileChange(
                                                                             e,
                                                                             setImageThumbnail,
@@ -359,9 +428,12 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
                                                                             id="placeholder"
                                                                             className="text-slate-400"
                                                                         >
-                                                                            Choose a
-                                                                            file or
-                                                                            drop it
+                                                                            Choose
+                                                                            a
+                                                                            file
+                                                                            or
+                                                                            drop
+                                                                            it
                                                                             here...
                                                                         </span>
                                                                     </span>
@@ -396,7 +468,9 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
                                                     </div>
 
                                                     <InputErrorBackend
-                                                        message={errors.image_thumbnail}
+                                                        message={
+                                                            errors.image_thumbnail
+                                                        }
                                                     />
                                                 </div>
 
@@ -415,7 +489,9 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
                                                                     className="w-full hidden"
                                                                     name="image_description"
                                                                     accept=".jpg, .jpeg, .png"
-                                                                    onChange={(e) =>
+                                                                    onChange={(
+                                                                        e
+                                                                    ) =>
                                                                         handleFileChange(
                                                                             e,
                                                                             setFileImageDescription,
@@ -429,9 +505,12 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
                                                                             id="placeholder"
                                                                             className="text-slate-400"
                                                                         >
-                                                                            Choose a
-                                                                            file or
-                                                                            drop it
+                                                                            Choose
+                                                                            a
+                                                                            file
+                                                                            or
+                                                                            drop
+                                                                            it
                                                                             here...
                                                                         </span>
                                                                     </span>
@@ -466,7 +545,9 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
                                                     </div>
 
                                                     <InputErrorBackend
-                                                        message={errors.image_description}
+                                                        message={
+                                                            errors.image_description
+                                                        }
                                                     />
                                                 </div>
 
@@ -485,7 +566,9 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
                                                                     className="w-full hidden"
                                                                     name="image_description2"
                                                                     accept=".jpg, .jpeg, .png"
-                                                                    onChange={(e) =>
+                                                                    onChange={(
+                                                                        e
+                                                                    ) =>
                                                                         handleFileChange(
                                                                             e,
                                                                             setFileImageDescription2,
@@ -499,9 +582,12 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
                                                                             id="placeholder"
                                                                             className="text-slate-400"
                                                                         >
-                                                                            Choose a
-                                                                            file or
-                                                                            drop it
+                                                                            Choose
+                                                                            a
+                                                                            file
+                                                                            or
+                                                                            drop
+                                                                            it
                                                                             here...
                                                                         </span>
                                                                     </span>
@@ -536,7 +622,9 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
                                                     </div>
 
                                                     <InputErrorBackend
-                                                        message={errors.image_description2}
+                                                        message={
+                                                            errors.image_description2
+                                                        }
                                                     />
                                                 </div>
 
@@ -555,7 +643,9 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
                                                                     className="w-full hidden"
                                                                     name="image_description3"
                                                                     accept=".jpg, .jpeg, .png"
-                                                                    onChange={(e) =>
+                                                                    onChange={(
+                                                                        e
+                                                                    ) =>
                                                                         handleFileChange(
                                                                             e,
                                                                             setFileImageDescription3,
@@ -569,9 +659,12 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
                                                                             id="placeholder"
                                                                             className="text-slate-400"
                                                                         >
-                                                                            Choose a
-                                                                            file or
-                                                                            drop it
+                                                                            Choose
+                                                                            a
+                                                                            file
+                                                                            or
+                                                                            drop
+                                                                            it
                                                                             here...
                                                                         </span>
                                                                     </span>
@@ -606,7 +699,310 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
                                                     </div>
 
                                                     <InputErrorBackend
-                                                        message={errors.image_description3}
+                                                        message={
+                                                            errors.image_description3
+                                                        }
+                                                    />
+                                                </div>
+
+                                                {/* Image Icon */}
+                                                <div className="input-area">
+                                                    <InputLabel
+                                                        htmlFor="icon1"
+                                                        value="Icon 1"
+                                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                    />
+
+                                                    <div className="relative">
+                                                        <>
+                                                            <label>
+                                                                <TextInput
+                                                                    type="file"
+                                                                    className="w-full hidden"
+                                                                    name="icon1"
+                                                                    accept=".jpg, .jpeg, .png"
+                                                                    onChange={(
+                                                                        e
+                                                                    ) =>
+                                                                        handleFileChange(
+                                                                            e,
+                                                                            setFileImageIcon1,
+                                                                            "icon1"
+                                                                        )
+                                                                    }
+                                                                />
+                                                                <span className="!py-1 !text-xs w-full h-[40px] file-control flex items-center custom-class">
+                                                                    <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
+                                                                        <span
+                                                                            id="placeholder"
+                                                                            className="text-slate-400"
+                                                                        >
+                                                                            Choose
+                                                                            a
+                                                                            file
+                                                                            or
+                                                                            drop
+                                                                            it
+                                                                            here...
+                                                                        </span>
+                                                                    </span>
+                                                                    <span className="file-name flex-none cursor-pointer border-l px-4 border-slate-200 dark:border-slate-700 h-full inline-flex items-center bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-sm rounded-tr rounded-br font-normal">
+                                                                        Browse
+                                                                    </span>
+                                                                </span>
+                                                            </label>
+                                                        </>
+
+                                                        <div
+                                                            id="file-preview"
+                                                            className="ml-8"
+                                                        >
+                                                            {fileImageIcon1 && (
+                                                                <img
+                                                                    src={
+                                                                        fileImageIcon1
+                                                                    }
+                                                                    alt="Preview"
+                                                                    className="w-full h-auto max-h-48 object-contain border border-slate-200 dark:border-slate-700 rounded-md mr-4"
+                                                                />
+                                                            )}
+                                                        </div>
+
+                                                        {errors.icon1 && (
+                                                            <Icon
+                                                                className={`absolute top-1/2 right-3 -translate-y-1/2 text-danger-500 text-xl`}
+                                                                icon="mdi:warning-octagon-outline"
+                                                            ></Icon>
+                                                        )}
+                                                    </div>
+
+                                                    <InputErrorBackend
+                                                        message={errors.icon1}
+                                                    />
+                                                </div>
+
+                                                <div className="input-area">
+                                                    <InputLabel
+                                                        htmlFor="icon2"
+                                                        value="Icon 2"
+                                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                    />
+
+                                                    <div className="relative">
+                                                        <>
+                                                            <label>
+                                                                <TextInput
+                                                                    type="file"
+                                                                    className="w-full hidden"
+                                                                    name="icon2"
+                                                                    accept=".jpg, .jpeg, .png"
+                                                                    onChange={(
+                                                                        e
+                                                                    ) =>
+                                                                        handleFileChange(
+                                                                            e,
+                                                                            setFileImageIcon2,
+                                                                            "icon2"
+                                                                        )
+                                                                    }
+                                                                />
+                                                                <span className="!py-1 !text-xs w-full h-[40px] file-control flex items-center custom-class">
+                                                                    <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
+                                                                        <span
+                                                                            id="placeholder"
+                                                                            className="text-slate-400"
+                                                                        >
+                                                                            Choose
+                                                                            a
+                                                                            file
+                                                                            or
+                                                                            drop
+                                                                            it
+                                                                            here...
+                                                                        </span>
+                                                                    </span>
+                                                                    <span className="file-name flex-none cursor-pointer border-l px-4 border-slate-200 dark:border-slate-700 h-full inline-flex items-center bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-sm rounded-tr rounded-br font-normal">
+                                                                        Browse
+                                                                    </span>
+                                                                </span>
+                                                            </label>
+                                                        </>
+
+                                                        <div
+                                                            id="file-preview"
+                                                            className="ml-8"
+                                                        >
+                                                            {fileImageIcon2 && (
+                                                                <img
+                                                                    src={
+                                                                        fileImageIcon2
+                                                                    }
+                                                                    alt="Preview"
+                                                                    className="w-full h-auto max-h-48 object-contain border border-slate-200 dark:border-slate-700 rounded-md mr-4"
+                                                                />
+                                                            )}
+                                                        </div>
+
+                                                        {errors.icon2 && (
+                                                            <Icon
+                                                                className={`absolute top-1/2 right-3 -translate-y-1/2 text-danger-500 text-xl`}
+                                                                icon="mdi:warning-octagon-outline"
+                                                            ></Icon>
+                                                        )}
+                                                    </div>
+
+                                                    <InputErrorBackend
+                                                        message={errors.icon2}
+                                                    />
+                                                </div>
+
+                                                <div className="input-area">
+                                                    <InputLabel
+                                                        htmlFor="icon3"
+                                                        value="Icon 3"
+                                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                    />
+
+                                                    <div className="relative">
+                                                        <>
+                                                            <label>
+                                                                <TextInput
+                                                                    type="file"
+                                                                    className="w-full hidden"
+                                                                    name="icon3"
+                                                                    accept=".jpg, .jpeg, .png"
+                                                                    onChange={(
+                                                                        e
+                                                                    ) =>
+                                                                        handleFileChange(
+                                                                            e,
+                                                                            setFileImageIcon3,
+                                                                            "icon3"
+                                                                        )
+                                                                    }
+                                                                />
+                                                                <span className="!py-1 !text-xs w-full h-[40px] file-control flex items-center custom-class">
+                                                                    <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
+                                                                        <span
+                                                                            id="placeholder"
+                                                                            className="text-slate-400"
+                                                                        >
+                                                                            Choose
+                                                                            a
+                                                                            file
+                                                                            or
+                                                                            drop
+                                                                            it
+                                                                            here...
+                                                                        </span>
+                                                                    </span>
+                                                                    <span className="file-name flex-none cursor-pointer border-l px-4 border-slate-200 dark:border-slate-700 h-full inline-flex items-center bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-sm rounded-tr rounded-br font-normal">
+                                                                        Browse
+                                                                    </span>
+                                                                </span>
+                                                            </label>
+                                                        </>
+
+                                                        <div
+                                                            id="file-preview"
+                                                            className="ml-8"
+                                                        >
+                                                            {fileImageIcon3 && (
+                                                                <img
+                                                                    src={
+                                                                        fileImageIcon3
+                                                                    }
+                                                                    alt="Preview"
+                                                                    className="w-full h-auto max-h-48 object-contain border border-slate-200 dark:border-slate-700 rounded-md mr-4"
+                                                                />
+                                                            )}
+                                                        </div>
+
+                                                        {errors.icon3 && (
+                                                            <Icon
+                                                                className={`absolute top-1/2 right-3 -translate-y-1/2 text-danger-500 text-xl`}
+                                                                icon="mdi:warning-octagon-outline"
+                                                            ></Icon>
+                                                        )}
+                                                    </div>
+
+                                                    <InputErrorBackend
+                                                        message={errors.icon3}
+                                                    />
+                                                </div>
+
+                                                <div className="input-area">
+                                                    <InputLabel
+                                                        htmlFor="icon4"
+                                                        value="Icon 4"
+                                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                    />
+
+                                                    <div className="relative">
+                                                        <>
+                                                            <label>
+                                                                <TextInput
+                                                                    type="file"
+                                                                    className="w-full hidden"
+                                                                    name="icon4"
+                                                                    accept=".jpg, .jpeg, .png"
+                                                                    onChange={(
+                                                                        e
+                                                                    ) =>
+                                                                        handleFileChange(
+                                                                            e,
+                                                                            setFileImageIcon4,
+                                                                            "icon4"
+                                                                        )
+                                                                    }
+                                                                />
+                                                                <span className="!py-1 !text-xs w-full h-[40px] file-control flex items-center custom-class">
+                                                                    <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
+                                                                        <span
+                                                                            id="placeholder"
+                                                                            className="text-slate-400"
+                                                                        >
+                                                                            Choose
+                                                                            a
+                                                                            file
+                                                                            or
+                                                                            drop
+                                                                            it
+                                                                            here...
+                                                                        </span>
+                                                                    </span>
+                                                                    <span className="file-name flex-none cursor-pointer border-l px-4 border-slate-200 dark:border-slate-700 h-full inline-flex items-center bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-sm rounded-tr rounded-br font-normal">
+                                                                        Browse
+                                                                    </span>
+                                                                </span>
+                                                            </label>
+                                                        </>
+
+                                                        <div
+                                                            id="file-preview"
+                                                            className="ml-8"
+                                                        >
+                                                            {fileImageIcon4 && (
+                                                                <img
+                                                                    src={
+                                                                        fileImageIcon4
+                                                                    }
+                                                                    alt="Preview"
+                                                                    className="w-full h-auto max-h-48 object-contain border border-slate-200 dark:border-slate-700 rounded-md mr-4"
+                                                                />
+                                                            )}
+                                                        </div>
+
+                                                        {errors.icon4 && (
+                                                            <Icon
+                                                                className={`absolute top-1/2 right-3 -translate-y-1/2 text-danger-500 text-xl`}
+                                                                icon="mdi:warning-octagon-outline"
+                                                            ></Icon>
+                                                        )}
+                                                    </div>
+
+                                                    <InputErrorBackend
+                                                        message={errors.icon4}
                                                     />
                                                 </div>
                                             </div>
@@ -629,7 +1025,7 @@ function CreateForm({ isOpen, closeModal, nameModal }) {
                 </div>
             )}
         </>
-    )
+    );
 }
 
-export default CreateForm
+export default CreateForm;

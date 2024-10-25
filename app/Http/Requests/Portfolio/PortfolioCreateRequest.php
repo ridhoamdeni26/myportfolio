@@ -27,10 +27,15 @@ class PortfolioCreateRequest extends FormRequest
             'category' => ['required', 'string'],
             'selectedDate' => ['required', 'date'],
             'description' => ['required', 'string', 'min:10'],
+            'link' => ['required', 'url'],
             'image_thumbnail' => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
             'image_description' => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
             'image_description2' => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
             'image_description3' => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'icon1' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+            'icon2' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+            'icon3' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+            'icon4' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ];
     }
 }
